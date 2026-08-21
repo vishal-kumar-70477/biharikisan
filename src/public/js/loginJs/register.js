@@ -6,7 +6,7 @@
      Adjust these to match how your Express routes are mounted, e.g.
      app.use('/api/buyer', buyerRoutes)  ->  router.post('/register', register); router.post('/verify-otp', otpVerification);
   ============================================= */
-  var API_BASE_URL = 'http://localhost:3000';
+  var API_BASE_URL = '';
   var ENDPOINTS = {
     register: '/biharikisan/auth/register',
     verifyOtp: '/biharikisan/auth/otp-verification'
