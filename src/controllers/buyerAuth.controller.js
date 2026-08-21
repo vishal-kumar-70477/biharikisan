@@ -254,6 +254,7 @@ async function logout(req,res){
     }
     
     session.revoked = true;
+    res.clearCookie("refreshToken");
     await session.save();
     res.status(200).json({
         success:true,
