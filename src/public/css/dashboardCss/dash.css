@@ -1,4 +1,4 @@
-  :root{
+:root{
     --primary: #1B5E20;
     --primary-dark: #124215;
     --secondary: #43A047;
@@ -170,6 +170,10 @@
   .top-right-item svg{ 
     width:22px; 
     height:22px; 
+  }
+  .mobile-icon{
+    display: none;
+    font-size: 20px;
   }
   .cart-badge{
     font-size: 20px;
@@ -622,6 +626,7 @@
     .location .l1, .location .l2{ display:none; }
     .top-right{ gap:12px; }
     .top-right-item .small, .top-right-item .big{ display:none; }
+    .top-right-item .mobile-icon{ display:block; }
     .top-right-item.cart-badge svg{ display:block; }
     .hero-headline{ font-size:30px; }
     .hero-text{ padding:28px 22px; }
