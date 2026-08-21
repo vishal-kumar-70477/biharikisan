@@ -29,7 +29,7 @@ app.get("/dash/register", (req, res) => {
     res.render("login/register");
 });
 
-app.get("/dash", (req, res) => {
+app.get("/", (req, res) => {
     res.render("dashboard/dash");
 });
 
