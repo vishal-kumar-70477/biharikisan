@@ -34,7 +34,7 @@ logoutBtn.addEventListener("click", async (e) => {
         const data = JSON.parse(text);
 
         if (data.success) {
-            window.location.href = "/dash";
+            window.location.href = "/";
         } else {
             alert(data.message);
         }
