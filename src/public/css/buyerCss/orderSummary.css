@@ -1177,4 +1177,10 @@ img {
     font-weight: 700;
 }
 
-/* Mobile: icon-only selected badge (no "Selected" text) */
+/* Mobile: hide the selected badge entirely (icon + text) —
+   the green border/background already shows selection */
+@media (max-width: 640px) {
+    .address-selected-badge {
+        display: none;
+    }
+}
