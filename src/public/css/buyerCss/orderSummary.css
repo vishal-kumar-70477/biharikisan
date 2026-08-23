@@ -1178,15 +1178,3 @@ img {
 }
 
 /* Mobile: icon-only selected badge (no "Selected" text) */
-@media (max-width: 640px) {
-    .address-selected-badge {
-        padding: 6px;
-        width: 24px;
-        height: 24px;
-        justify-content: center;
-    }
-
-    .address-selected-badge__text {
-        display: none;
-    }
-}
