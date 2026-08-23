@@ -152,6 +152,39 @@ body {
 .logout-link:hover {
   background: var(--error-tint);
 }
+
+/* ---------------- Mobile hamburger button ---------------- */
+.menu-btn {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: none;
+  background: transparent;
+  color: var(--ink);
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.15s ease;
+}
+
+.menu-btn:hover {
+  background: var(--blue-tint);
+}
+
+/* ---------------- Mobile sidebar overlay/backdrop ---------------- */
+.sidebar-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(20, 24, 16, 0.45);
+  z-index: 99;
+}
+
+.sidebar-overlay.show {
+  display: block;
+}
  
 /* ---------------- Content column ---------------- */
 .content-col {
@@ -297,7 +330,27 @@ body {
 }
  
 @media (max-width: 800px) {
-  .sidebar { display: none; }
+  .menu-btn {
+    display: flex;
+  }
+
+  .sidebar {
+    display: flex; /* was display:none before — now shown as a slide-in drawer */
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 260px;
+    max-width: 82vw;
+    transform: translateX(-100%);
+    transition: transform 0.25s ease;
+    z-index: 100;
+    box-shadow: 0 0 24px rgba(0, 0, 0, 0.18);
+  }
+
+  .sidebar.open {
+    transform: translateX(0);
+  }
 }
  
 @media (max-width: 600px) {
