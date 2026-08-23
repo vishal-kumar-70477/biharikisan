@@ -524,5 +524,28 @@ searchInput.addEventListener(
 );
 
 
+// ---- Mobile sidebar drawer ----
+const sidebarEl = document.getElementById("sidebar");
+const menuBtn = document.getElementById("menuBtn");
+const sidebarOverlay = document.getElementById("sidebarOverlay");
+
+function openSidebar() {
+  sidebarEl?.classList.add("open");
+  sidebarOverlay?.classList.add("show");
+}
+
+function closeSidebar() {
+  sidebarEl?.classList.remove("open");
+  sidebarOverlay?.classList.remove("show");
+}
+
+menuBtn?.addEventListener("click", openSidebar);
+sidebarOverlay?.addEventListener("click", closeSidebar);
+
+document
+  .querySelectorAll(".sidebar .nav-link, .sidebar .logout-link")
+  .forEach((link) => link.addEventListener("click", closeSidebar));
+
+
 // ---- Init ----
 fetchProducts();
