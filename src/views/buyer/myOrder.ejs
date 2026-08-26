@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>My Orders | BIHARI KISAN — Buyer Dashboard</title>
+<meta name="description" content="Track your fresh farm produce orders and purchases on BIHARI KISAN." />
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
+<link rel="stylesheet" href="/css/buyerCss/myOrder.css" />
+</head>
+<body>
+
+<a class="skip-link" href="#main-content">Skip to orders</a>
+
+<div class="bk-app">
+
+  <aside class="bk-sidebar" id="sidebar">
+    <div class="bk-sidebar__brand">
+      <div class="bk-logo-mark" aria-hidden="true">
+        <i data-lucide="sprout"></i>
+      </div>
+      <div class="bk-brand-text">
+        <span class="bk-brand-name">BIHARI <strong>KISAN</strong></span>
+        <span class="bk-brand-sub">Buyer Dashboard</span>
+      </div>
+    </div>
+
+    <nav class="bk-sidebar__nav" aria-label="Primary">
+      <a href="#" class="bk-nav-link"><i data-lucide="layout-grid"></i><span>Dashboard</span></a>
+      <a href="#" class="bk-nav-link"><i data-lucide="store"></i><span>Browse Crops</span></a>
+      <a href="#" class="bk-nav-link is-active" aria-current="page"><i data-lucide="clipboard-list"></i><span>My Orders</span></a>
+      <a href="#" class="bk-nav-link"><i data-lucide="users"></i><span>Saved Sellers</span></a>
+      <a href="#" class="bk-nav-link"><i data-lucide="wallet"></i><span>Payments</span></a>
+      <a href="#" class="bk-nav-link"><i data-lucide="truck"></i><span>Track Delivery</span></a>
+      <a href="#" class="bk-nav-link"><i data-lucide="circle-help"></i><span>Help &amp; Support</span></a>
+      <a href="#" class="bk-nav-link"><i data-lucide="settings"></i><span>Settings</span></a>
+    </nav>
+
+    <a href="#" class="bk-nav-link bk-nav-link--logout">
+      <i data-lucide="log-out"></i><span>Logout</span>
+    </a>
+  </aside>
+
+  <div class="bk-sidebar-overlay" id="sidebarOverlay" hidden></div>
+
+  <div class="bk-app__content">
+
+    <header class="bk-header">
+      <div class="bk-header__inner">
+
+        <button class="bk-menu-toggle" id="menuToggle" type="button" aria-label="Open menu" aria-controls="sidebar" aria-expanded="false">
+          <i data-lucide="menu"></i>
+        </button>
+
+        <div class="bk-header__search">
+          <i data-lucide="search" class="bk-header__search-icon" aria-hidden="true"></i>
+          <input type="search" id="globalSearch" placeholder="Search crops, farmers, villages..." aria-label="Search crops, farmers, villages" />
+        </div>
+
+        <div class="bk-header__actions">
+          <button class="bk-icon-btn" type="button" aria-label="Notifications">
+            <i data-lucide="bell"></i>
+            <span class="bk-badge-dot" aria-hidden="true"></span>
+          </button>
+          <button class="bk-icon-btn" type="button" aria-label="Cart">
+            <i data-lucide="shopping-basket"></i>
+          </button>
+          <button class="bk-profile" type="button" aria-haspopup="true" aria-expanded="false">
+            <span class="bk-avatar">RK</span>
+            <span class="bk-profile-name">Ramesh Kushwaha</span>
+            <i data-lucide="chevron-down" class="bk-profile-caret"></i>
+          </button>
+        </div>
+
+      </div>
+    </header>
+
+    <main id="main-content" class="bk-main">
+
+  <section class="bk-hero">
+    <div class="bk-hero__text">
+      <h1>My Orders</h1>
+      <p>Track your fresh farm produce orders and purchases.</p>
+    </div>
+    <div class="bk-hero__total" aria-hidden="true">
+      <div class="bk-hero__total-icon"><i data-lucide="package-check"></i></div>
+      <div class="bk-hero__total-copy">
+        <span class="bk-hero__total-label">Total Orders</span>
+        <span class="bk-hero__total-value" id="heroTotalCount">12</span>
+      </div>
+    </div>
+  </section>
+
+  <section class="bk-stats" aria-label="Order status summary filters">
+    <button class="bk-stat-card is-active" type="button" data-stat-filter="All">
+      <span class="bk-stat-icon bk-stat-icon--all"><i data-lucide="layout-grid"></i></span>
+      <span class="bk-stat-info">
+        <span class="bk-stat-count" data-count="All">12</span>
+        <span class="bk-stat-label">All Orders</span>
+      </span>
+    </button>
+    <button class="bk-stat-card" type="button" data-stat-filter="Preparing">
+      <span class="bk-stat-icon bk-stat-icon--processing"><i data-lucide="loader"></i></span>
+      <span class="bk-stat-info">
+        <span class="bk-stat-count" data-count="Preparing">2</span>
+        <span class="bk-stat-label">Processing</span>
+      </span>
+    </button>
+    <button class="bk-stat-card" type="button" data-stat-filter="Out for Delivery">
+      <span class="bk-stat-icon bk-stat-icon--transit"><i data-lucide="truck"></i></span>
+      <span class="bk-stat-info">
+        <span class="bk-stat-count" data-count="Out for Delivery">1</span>
+        <span class="bk-stat-label">Out for Delivery</span>
+      </span>
+    </button>
+    <button class="bk-stat-card" type="button" data-stat-filter="Delivered">
+      <span class="bk-stat-icon bk-stat-icon--delivered"><i data-lucide="circle-check-big"></i></span>
+      <span class="bk-stat-info">
+        <span class="bk-stat-count" data-count="Delivered">8</span>
+        <span class="bk-stat-label">Delivered</span>
+      </span>
+    </button>
+    <button class="bk-stat-card" type="button" data-stat-filter="Cancelled">
+      <span class="bk-stat-icon bk-stat-icon--cancelled"><i data-lucide="circle-x"></i></span>
+      <span class="bk-stat-info">
+        <span class="bk-stat-count" data-count="Cancelled">1</span>
+        <span class="bk-stat-label">Cancelled</span>
+      </span>
+    </button>
+  </section>
+
+  <section class="bk-toolbar" aria-label="Filter and sort orders">
+    <div class="bk-toolbar__search">
+      <i data-lucide="search" aria-hidden="true"></i>
+      <input type="search" id="orderSearch" placeholder="Search by Order ID, product or farmer..." aria-label="Search orders" />
+    </div>
+
+    <div class="bk-toolbar__selects">
+      <label class="bk-select">
+        <span class="bk-select__label">Status</span>
+        <select id="statusFilter" aria-label="Filter by status">
+          <option value="All">All Orders</option>
+          <option value="Confirmed">Confirmed</option>
+          <option value="Preparing">Preparing</option>
+          <option value="Out for Delivery">Out for Delivery</option>
+          <option value="Delivered">Delivered</option>
+          <option value="Cancelled">Cancelled</option>
+        </select>
+      </label>
+
+      <label class="bk-select">
+        <span class="bk-select__label">Date</span>
+        <select id="dateFilter" aria-label="Filter by date">
+          <option value="All">All Time</option>
+          <option value="30">Last 30 Days</option>
+          <option value="90">Last 3 Months</option>
+          <option value="year">This Year</option>
+        </select>
+      </label>
+
+      <label class="bk-select">
+        <span class="bk-select__label">Sort</span>
+        <select id="sortOrder" aria-label="Sort orders">
+          <option value="newest">Newest First</option>
+          <option value="oldest">Oldest First</option>
+          <option value="amount-high">Amount: High to Low</option>
+          <option value="amount-low">Amount: Low to High</option>
+        </select>
+      </label>
+    </div>
+  </section>
+
+  <section class="bk-orders" aria-label="Your orders">
+    <div id="loadingState" class="bk-loading">
+      <span class="bk-spinner" aria-hidden="true"></span>
+      <span>Loading your orders...</span>
+    </div>
+
+    <div id="ordersList" class="bk-orders__list"></div>
+
+    <div id="emptyState" class="bk-empty" hidden>
+      <div class="bk-empty__icon" id="emptyStateIcon"><i data-lucide="package-search"></i></div>
+      <h3 id="emptyStateHeading">No orders found</h3>
+      <p id="emptyStateMessage">Try changing your filters or search for another order.</p>
+      <button class="bk-btn bk-btn--primary" id="clearFiltersBtn" type="button">Clear Filters</button>
+    </div>
+
+    <div class="bk-load-more-wrap">
+      <button class="bk-btn bk-btn--outline" id="loadMoreBtn" type="button">Load More Orders</button>
+    </div>
+  </section>
+
+</main>
+
+  </div>
+</div>
+
+<template id="orderCardTemplate">
+  <article class="bk-order-card">
+    <header class="bk-order-card__top">
+      <div class="bk-order-card__id-wrap">
+        <span class="bk-order-card__id"></span>
+        <span class="bk-order-card__date"></span>
+      </div>
+      <span class="bk-status-badge"></span>
+    </header>
+
+    <div class="bk-order-card__body">
+      <div class="bk-order-card__product">
+        <div class="bk-product-img">
+          <i data-lucide="wheat"></i>
+        </div>
+        <div class="bk-product-info">
+          <h3 class="bk-product-name"></h3>
+          <p class="bk-product-qty"></p>
+          <div class="bk-farmer-row">
+            <i data-lucide="user-round" class="bk-farmer-icon"></i>
+            <span class="bk-farmer-name"></span>
+            <span class="bk-verified-badge" title="Verified Farmer">
+              <i data-lucide="badge-check"></i> Verified Farmer
+            </span>
+          </div>
+          <div class="bk-farmer-location">
+            <i data-lucide="map-pin"></i>
+            <span class="bk-location-text"></span>
+          </div>
+        </div>
+      </div>
+
+      <div class="bk-order-card__amount">
+        <span class="bk-amount-label">Total Amount</span>
+        <span class="bk-amount-value"></span>
+        <span class="bk-payment-info"></span>
+      </div>
+    </div>
+
+    <div class="bk-tracker-wrap">
+      <ol class="bk-tracker"></ol>
+      <div class="bk-delivery-note"></div>
+    </div>
+
+    <div class="bk-cancelled-note" hidden>
+      <i data-lucide="info"></i>
+      <span>This order was cancelled.</span>
+    </div>
+
+    <footer class="bk-order-card__actions"></footer>
+  </article>
+</template>
+
+<div class="bk-modal-overlay" id="trackModal" hidden>
+  <div class="bk-modal" role="dialog" aria-modal="true" aria-labelledby="trackModalTitle">
+    <div class="bk-modal__header">
+      <h2 id="trackModalTitle">Track Order</h2>
+      <button class="bk-modal__close" type="button" data-close-modal="trackModal" aria-label="Close">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="bk-modal__body" id="trackModalBody"></div>
+  </div>
+</div>
+
+<div class="bk-modal-overlay" id="detailsModal" hidden>
+  <div class="bk-modal" role="dialog" aria-modal="true" aria-labelledby="detailsModalTitle">
+    <div class="bk-modal__header">
+      <h2 id="detailsModalTitle">Order Details</h2>
+      <button class="bk-modal__close" type="button" data-close-modal="detailsModal" aria-label="Close">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="bk-modal__body" id="detailsModalBody"></div>
+  </div>
+</div>
+
+<div class="bk-modal-overlay" id="cancelModal" hidden>
+  <div class="bk-modal bk-modal--small" role="alertdialog" aria-modal="true" aria-labelledby="cancelModalTitle">
+    <div class="bk-modal__header">
+      <h2 id="cancelModalTitle">Cancel this order?</h2>
+      <button class="bk-modal__close" type="button" data-close-modal="cancelModal" aria-label="Close">
+        <i data-lucide="x"></i>
+      </button>
+    </div>
+    <div class="bk-modal__body">
+      <p class="bk-cancel-copy">Are you sure you want to cancel this order? This action cannot be undone.</p>
+      <div class="bk-modal__actions">
+        <button class="bk-btn bk-btn--outline" type="button" data-close-modal="cancelModal">Keep Order</button>
+        <button class="bk-btn bk-btn--danger" type="button" id="confirmCancelBtn">Yes, Cancel Order</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="bk-toast" id="toast" role="status" aria-live="polite" hidden>
+  <i data-lucide="check-circle-2"></i>
+  <span id="toastMessage"></span>
+</div>
+
+<script src="/js/buyerJs/myOrder.js" defer></script>
+</body>
+</html>
