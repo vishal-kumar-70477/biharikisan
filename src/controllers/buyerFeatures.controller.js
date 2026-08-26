@@ -547,12 +547,9 @@ async function viewOrders(req,res){
             message:"You are not a buyer"
         })
     }
-   const orders = await orderModel.find({
-    buyerId: decoded.id
-})
-.populate("productId", "productDesc productPrice productImageUri")
-.populate("sellerId", "sellerName address fullName")
-.sort({ createdAt: -1 });
+    const orders = await orderModel.find({
+        buyerId:decoded.id
+    })
     if(!orders){
         return res.status(404).json({
             success:false,
