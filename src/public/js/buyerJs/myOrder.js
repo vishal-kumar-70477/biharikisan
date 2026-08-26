@@ -60,7 +60,7 @@
   /* ---------------------------------------------------------
      CONFIG — update to match your actual mounted route
   --------------------------------------------------------- */
- const CONFIG = {
+const CONFIG = {
   API_BASE_URL: 'https://biharikisan.onrender.com',
   ORDERS_ENDPOINT: '/biharikisan/buyer/view-Orders',
   LOGIN_URL: '/'
@@ -168,23 +168,50 @@
      Adjust the right-hand side of each line to match your real
      Order mongoose schema once you can confirm it.
   --------------------------------------------------------- */
+  // Backend enum values → UI labels
+  const ORDER_STATUS_MAP = {
+    pending: 'Confirmed',
+    confirmed: 'Confirmed',
+    processing: 'Preparing',
+    shipped: 'Out for Delivery',
+    delivered: 'Delivered',
+    cancelled: 'Cancelled'
+  };
+
+  const PAYMENT_STATUS_MAP = {
+    pending: 'Pending',
+    paid: 'Successful',
+    failed: 'Failed',
+    refunded: 'Refunded'
+  };
+
+  const PAYMENT_METHOD_MAP = {
+    cod: 'Cash on Delivery',
+    upi: 'UPI',
+    card: 'Card',
+    netbanking: 'Net Banking'
+  };
+
   function normalizeOrder(raw) {
-    const firstProduct = Array.isArray(raw.products) ? raw.products[0] : null;
+    const product = raw.productId || {};
+    const seller = raw.sellerId || {};
 
     return {
-      id: raw.orderId || raw._id || raw.id || '',
-      productName: raw.productName || firstProduct?.name || firstProduct?.productName || 'Product',
-      quantity: raw.quantity || firstProduct?.quantity || 1,
-      unit: raw.unit || firstProduct?.unit || 'KG',
-      pricePerUnit: raw.pricePerUnit || firstProduct?.pricePerUnit || firstProduct?.price || 0,
-      farmerName: raw.farmerName || raw.farmer?.name || firstProduct?.farmerName || 'Farmer',
-      farmerLocation: raw.farmerLocation || raw.farmer?.location || firstProduct?.farmerLocation || '',
-      verified: raw.verified ?? raw.farmer?.verified ?? firstProduct?.verified ?? false,
-      totalAmount: raw.totalAmount || raw.amount || raw.total || 0,
+      id: raw._id || raw.orderId || raw.id || '',
+      productName: product.productDesc || raw.productName || 'Product',
+      quantity: raw.quantity || 1,
+      unit: raw.unit || 'KG',
+      pricePerUnit: raw.priceAtOrder || product.productPrice || 0,
+      farmerName: seller.sellerName || seller.fullName || raw.farmerName || 'Farmer',
+      farmerLocation: seller.address
+        ? `${seller.address.village || ''}, ${seller.address.state || ''}`
+        : (raw.farmerLocation || ''),
+      verified: raw.verified ?? false,
+      totalAmount: raw.totalAmount || 0,
       orderDate: raw.orderDate || raw.createdAt || new Date().toISOString(),
-      status: raw.status || raw.orderStatus || 'Confirmed',
-      paymentMethod: raw.paymentMethod || 'UPI',
-      paymentStatus: raw.paymentStatus || 'Pending',
+      status: ORDER_STATUS_MAP[raw.orderStatus] || raw.status || 'Confirmed',
+      paymentMethod: PAYMENT_METHOD_MAP[raw.paymentMethod] || raw.paymentMethod || 'UPI',
+      paymentStatus: PAYMENT_STATUS_MAP[raw.paymentStatus] || raw.paymentStatus || 'Pending',
       expectedDelivery: raw.expectedDelivery || '',
       deliveredOn: raw.deliveredOn || raw.deliveredAt || null
     };
