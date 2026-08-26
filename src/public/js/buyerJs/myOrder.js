@@ -60,7 +60,7 @@
   /* ---------------------------------------------------------
      CONFIG — update to match your actual mounted route
   --------------------------------------------------------- */
-  const CONFIG = {
+ const CONFIG = {
   API_BASE_URL: 'https://biharikisan.onrender.com',
   ORDERS_ENDPOINT: '/biharikisan/buyer/view-Orders',
   LOGIN_URL: '/'
