@@ -6,7 +6,61 @@
 (function () {
   'use strict';
 
- const CONFIG = {
+  /* ---------------------------------------------------------
+     ICONS — inlined Lucide SVG paths (no external CDN/script
+     dependency, so icons always render immediately and never
+     depend on network timing or a page refresh).
+  --------------------------------------------------------- */
+  const ICONS = {
+    'badge-check': `<path d="M3.85 8.62a4 4 0 0 1 4.78-4.77 4 4 0 0 1 6.74 0 4 4 0 0 1 4.78 4.78 4 4 0 0 1 0 6.74 4 4 0 0 1-4.77 4.78 4 4 0 0 1-6.75 0 4 4 0 0 1-4.78-4.77 4 4 0 0 1 0-6.76Z" /> <path d="m9 12 2 2 4-4" />`,
+    'bell': `<path d="M10.268 21a2 2 0 0 0 3.464 0" /> <path d="M3.262 15.326A1 1 0 0 0 4 17h16a1 1 0 0 0 .74-1.673C19.41 13.956 18 12.499 18 8A6 6 0 0 0 6 8c0 4.499-1.411 5.956-2.738 7.326" />`,
+    'calendar-clock': `<path d="M16 14v2.2l1.6 1" /> <path d="M16 2v3" /> <path d="M21 7.338V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h2.338" /> <path d="M3 9h5.859" /> <path d="M8 2v3" /> <circle cx="16" cy="16" r="6" />`,
+    'check-circle-2': `<circle cx="12" cy="12" r="10" /> <path d="m9 12 2 2 4-4" />`,
+    'check': `<path d="M20 6 9 17l-5-5" />`,
+    'chevron-down': `<path d="m6 9 6 6 6-6" />`,
+    'circle-check-big': `<path d="M21.801 10A10 10 0 1 1 17 3.335" /> <path d="m9 11 3 3L22 4" />`,
+    'circle-dot': `<circle cx="12" cy="12" r="10" /> <circle cx="12" cy="12" r="1" />`,
+    'circle-help': `<circle cx="12" cy="12" r="10" /> <path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3" /> <path d="M12 17h.01" />`,
+    'circle-x': `<circle cx="12" cy="12" r="10" /> <path d="m15 9-6 6" /> <path d="m9 9 6 6" />`,
+    'circle': `<circle cx="12" cy="12" r="10" />`,
+    'clipboard-list': `<rect width="8" height="4" x="8" y="2" rx="1" ry="1" /> <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2" /> <path d="M12 11h4" /> <path d="M12 16h4" /> <path d="M8 11h.01" /> <path d="M8 16h.01" />`,
+    'file-text': `<path d="M6 22a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h8a2.4 2.4 0 0 1 1.704.706l3.588 3.588A2.4 2.4 0 0 1 20 8v12a2 2 0 0 1-2 2z" /> <path d="M14 2v5a1 1 0 0 0 1 1h5" /> <path d="M10 9H8" /> <path d="M16 13H8" /> <path d="M16 17H8" />`,
+    'flame': `<path d="M12 3q1 4 4 6.5t3 5.5a1 1 0 0 1-14 0 5 5 0 0 1 1-3 1 1 0 0 0 5 0c0-2-1.5-3-1.5-5q0-2 2.5-4" />`,
+    'flower': `<circle cx="12" cy="12" r="3" /> <path d="M12 16.5A4.5 4.5 0 1 1 7.5 12 4.5 4.5 0 1 1 12 7.5a4.5 4.5 0 1 1 4.5 4.5 4.5 4.5 0 1 1-4.5 4.5" /> <path d="M12 7.5V9" /> <path d="M7.5 12H9" /> <path d="M16.5 12H15" /> <path d="M12 16.5V15" /> <path d="m8 8 1.88 1.88" /> <path d="M14.12 9.88 16 8" /> <path d="m8 16 1.88-1.88" /> <path d="M14.12 14.12 16 16" />`,
+    'hand-heart': `<path d="M11 14h2a2 2 0 0 0 0-4h-3c-.6 0-1.1.2-1.4.6L3 16" /> <path d="m14.45 13.39 5.05-4.694C20.196 8 21 6.85 21 5.75a2.75 2.75 0 0 0-4.797-1.837.276.276 0 0 1-.406 0A2.75 2.75 0 0 0 11 5.75c0 1.2.802 2.248 1.5 2.946L16 11.95" /> <path d="m2 15 6 6" /> <path d="m7 20 1.6-1.4c.3-.4.8-.6 1.4-.6h4c1.1 0 2.1-.4 2.8-1.2l4.6-4.4a1 1 0 0 0-2.75-2.91" />`,
+    'info': `<circle cx="12" cy="12" r="10" /> <path d="M12 16v-4" /> <path d="M12 8h.01" />`,
+    'layout-grid': `<rect width="7" height="7" x="3" y="3" rx="1" /> <rect width="7" height="7" x="14" y="3" rx="1" /> <rect width="7" height="7" x="14" y="14" rx="1" /> <rect width="7" height="7" x="3" y="14" rx="1" />`,
+    'leaf': `<path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" /> <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />`,
+    'loader': `<path d="M12 2v4" /> <path d="m16.2 7.8 2.9-2.9" /> <path d="M18 12h4" /> <path d="m16.2 16.2 2.9 2.9" /> <path d="M12 18v4" /> <path d="m4.9 19.1 2.9-2.9" /> <path d="M2 12h4" /> <path d="m4.9 4.9 2.9 2.9" />`,
+    'log-out': `<path d="m16 17 5-5-5-5" /> <path d="M21 12H9" /> <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />`,
+    'map-pin': `<path d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0" /> <circle cx="12" cy="10" r="3" />`,
+    'menu': `<path d="M4 5h16" /> <path d="M4 12h16" /> <path d="M4 19h16" />`,
+    'package-check': `<path d="M12 22V12" /> <path d="m16 17 2 2 4-4" /> <path d="M21 11.127V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l1.32-.753" /> <path d="M3.29 7 12 12l8.71-5" /> <path d="m7.5 4.27 8.997 5.148" />`,
+    'package-search': `<path d="M12 22V12" /> <path d="M20.27 18.27 22 20" /> <path d="M21 10.498V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.729l7 4a2 2 0 0 0 2 .001l.98-.559" /> <path d="M3.29 7 12 12l8.71-5" /> <path d="m7.5 4.27 8.997 5.148" /> <circle cx="18.5" cy="16.5" r="2.5" />`,
+    'rotate-cw': `<path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8" /> <path d="M21 3v5h-5" />`,
+    'search': `<path d="m21 21-4.34-4.34" /> <circle cx="11" cy="11" r="8" />`,
+    'settings': `<path d="M9.671 4.136a2.34 2.34 0 0 1 4.659 0 2.34 2.34 0 0 0 3.319 1.915 2.34 2.34 0 0 1 2.33 4.033 2.34 2.34 0 0 0 0 3.831 2.34 2.34 0 0 1-2.33 4.033 2.34 2.34 0 0 0-3.319 1.915 2.34 2.34 0 0 1-4.659 0 2.34 2.34 0 0 0-3.32-1.915 2.34 2.34 0 0 1-2.33-4.033 2.34 2.34 0 0 0 0-3.831A2.34 2.34 0 0 1 6.35 6.051a2.34 2.34 0 0 0 3.319-1.915" /> <circle cx="12" cy="12" r="3" />`,
+    'shopping-basket': `<path d="m15 11-1 9" /> <path d="m19 11-4-7" /> <path d="M2 11h20" /> <path d="m3.5 11 1.6 7.4a2 2 0 0 0 2 1.6h9.8a2 2 0 0 0 2-1.6l1.7-7.4" /> <path d="M4.5 15.5h15" /> <path d="m5 11 4-7" /> <path d="m9 11 1 9" />`,
+    'sprout': `<path d="M14 9.536V7a4 4 0 0 1 4-4h1.5a.5.5 0 0 1 .5.5V5a4 4 0 0 1-4 4 4 4 0 0 0-4 4c0 2 1 3 1 5a5 5 0 0 1-1 3" /> <path d="M4 9a5 5 0 0 1 8 4 5 5 0 0 1-8-4" /> <path d="M5 21h14" />`,
+    'store': `<path d="M15 21v-5a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v5" /> <path d="M17.774 10.31a1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.451 0 1.12 1.12 0 0 0-1.548 0 2.5 2.5 0 0 1-3.452 0 1.12 1.12 0 0 0-1.549 0 2.5 2.5 0 0 1-3.77-3.248l2.889-4.184A2 2 0 0 1 7 2h10a2 2 0 0 1 1.653.873l2.895 4.192a2.5 2.5 0 0 1-3.774 3.244" /> <path d="M4 10.95V19a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8.05" />`,
+    'truck': `<path d="M14 18V6a2 2 0 0 0-2-2H4a2 2 0 0 0-2 2v11a1 1 0 0 0 1 1h2" /> <path d="M15 18H9" /> <path d="M19 18h2a1 1 0 0 0 1-1v-3.65a1 1 0 0 0-.22-.624l-3.48-4.35A1 1 0 0 0 17.52 8H14" /> <circle cx="17" cy="18" r="2" /> <circle cx="7" cy="18" r="2" />`,
+    'user-round': `<circle cx="12" cy="8" r="5" /> <path d="M20 21a8 8 0 0 0-16 0" />`,
+    'users': `<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /> <path d="M16 3.128a4 4 0 0 1 0 7.744" /> <path d="M22 21v-2a4 4 0 0 0-3-3.87" /> <circle cx="9" cy="7" r="4" />`,
+    'wallet': `<path d="M19 7V4a1 1 0 0 0-1-1H5a2 2 0 0 0 0 4h15a1 1 0 0 1 1 1v4h-3a2 2 0 0 0 0 4h3a1 1 0 0 0 1-1v-2a1 1 0 0 0-1-1" /> <path d="M3 5v14a2 2 0 0 0 2 2h15a1 1 0 0 0 1-1v-4" />`,
+    'wheat': `<path d="M2 22 16 8" /> <path d="M3.47 12.53 5 11l1.53 1.53a3.5 3.5 0 0 1 0 4.94L5 19l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /> <path d="M7.47 8.53 9 7l1.53 1.53a3.5 3.5 0 0 1 0 4.94L9 15l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /> <path d="M11.47 4.53 13 3l1.53 1.53a3.5 3.5 0 0 1 0 4.94L13 11l-1.53-1.53a3.5 3.5 0 0 1 0-4.94Z" /> <path d="M20 2h2v2a4 4 0 0 1-4 4h-2V6a4 4 0 0 1 4-4Z" /> <path d="M11.47 17.47 13 19l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L5 19l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" /> <path d="M15.47 13.47 17 15l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L9 15l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" /> <path d="M19.47 9.47 21 11l-1.53 1.53a3.5 3.5 0 0 1-4.94 0L13 11l1.53-1.53a3.5 3.5 0 0 1 4.94 0Z" />`,
+    'wifi-off': `<path d="M12 20h.01" /> <path d="M8.5 16.429a5 5 0 0 1 7 0" /> <path d="M5 12.859a10 10 0 0 1 5.17-2.69" /> <path d="M19 12.859a10 10 0 0 0-2.007-1.523" /> <path d="M2 8.82a15 15 0 0 1 4.177-2.643" /> <path d="M22 8.82a15 15 0 0 0-11.288-3.764" /> <path d="m2 2 20 20" />`,
+    'x-circle': `<circle cx="12" cy="12" r="10" /> <path d="m15 9-6 6" /> <path d="m9 9 6 6" />`,
+    'x': `<path d="M18 6 6 18" /> <path d="m6 6 12 12" />`,
+  };
+  function icon(name, cls) {
+    const paths = ICONS[name] || '';
+    return `<svg class="lucide-ico${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${paths}</svg>`;
+  }
+
+  /* ---------------------------------------------------------
+     CONFIG — update to match your actual mounted route
+  --------------------------------------------------------- */
+  const CONFIG = {
   API_BASE_URL: 'https://biharikisan.onrender.com',
   ORDERS_ENDPOINT: '/biharikisan/buyer/view-Orders',
   LOGIN_URL: '/'
@@ -234,9 +288,10 @@
     return Math.floor((now - d) / (1000 * 60 * 60 * 24));
   }
 
-  function refreshIcons() {
-    if (window.lucide) window.lucide.createIcons();
-  }
+  // No-op: icons are inlined as real SVG at render time (see icon() above),
+  // so there is no external icon library left to "refresh". Kept as a
+  // stub so existing call sites don't need to be touched one by one.
+  function refreshIcons() {}
 
   function showToast(message) {
     els.toastMessage.textContent = message;
@@ -335,7 +390,7 @@
 
       const iconName = i < currentIndex ? 'check' : (i === currentIndex ? 'circle-dot' : 'circle');
       li.innerHTML = `
-        <span class="bk-tracker__dot"><i data-lucide="${iconName}"></i></span>
+        <span class="bk-tracker__dot">${icon(iconName)}</span>
         <span class="bk-tracker__label">${step}</span>
       `;
       ol.appendChild(li);
@@ -356,7 +411,7 @@
     badge.classList.add(STATUS_BADGE_CLASS[order.status]);
 
     const iconName = PRODUCT_ICONS[order.productName] || 'leaf';
-    node.querySelector('.bk-product-img i').setAttribute('data-lucide', iconName);
+    node.querySelector('.bk-product-img').innerHTML = icon(iconName);
     node.querySelector('.bk-product-name').textContent = order.productName;
     node.querySelector('.bk-product-qty').textContent =
       `${order.quantity} ${order.unit} × ₹${order.pricePerUnit} / ${order.unit}`;
@@ -387,9 +442,9 @@
       cancelledNote.remove();
       trackerWrap.querySelector('.bk-tracker').replaceWith(buildTracker(order));
       if (order.status === 'Delivered') {
-        deliveryNote.innerHTML = `<i data-lucide="package-check" style="width:15px;height:15px;color:var(--success);"></i> Delivered on <strong>${formatDate(order.deliveredOn)}</strong>`;
+        deliveryNote.innerHTML = `${icon('package-check', 'bk-inline-icon bk-inline-icon--success')} Delivered on <strong>${formatDate(order.deliveredOn)}</strong>`;
       } else {
-        deliveryNote.innerHTML = `<i data-lucide="calendar-clock" style="width:15px;height:15px;color:var(--sky);"></i> Expected Delivery <strong>${order.expectedDelivery}</strong>`;
+        deliveryNote.innerHTML = `${icon('calendar-clock', 'bk-inline-icon bk-inline-icon--sky')} Expected Delivery <strong>${order.expectedDelivery}</strong>`;
       }
     }
 
@@ -403,11 +458,11 @@
   function buildActionButtons(order) {
     const frag = document.createDocumentFragment();
 
-    function makeBtn(label, variant, icon, handler) {
+    function makeBtn(label, variant, iconName, handler) {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = `bk-btn bk-btn--${variant}`;
-      btn.innerHTML = `${icon ? `<i data-lucide="${icon}"></i>` : ''}${label}`;
+      btn.innerHTML = `${iconName ? icon(iconName) : ''}${label}`;
       btn.addEventListener('click', handler);
       return btn;
     }
@@ -535,25 +590,23 @@
      EMPTY / ERROR STATE HELPERS
   --------------------------------------------------------- */
   function showNoResultsState() {
-    els.emptyStateIcon.querySelector('i').setAttribute('data-lucide', 'package-search');
+    els.emptyStateIcon.innerHTML = icon('package-search');
     els.emptyStateHeading.textContent = 'No orders found';
     els.emptyStateMessage.textContent = 'Try changing your filters or search for another order.';
     els.clearFiltersBtn.textContent = 'Clear Filters';
     els.clearFiltersBtn.dataset.mode = 'clear';
     els.emptyState.hidden = false;
-    refreshIcons();
   }
 
   function showErrorState(message) {
     els.ordersList.innerHTML = '';
     els.loadMoreBtn.style.display = 'none';
-    els.emptyStateIcon.querySelector('i').setAttribute('data-lucide', 'wifi-off');
+    els.emptyStateIcon.innerHTML = icon('wifi-off');
     els.emptyStateHeading.textContent = 'Couldn\'t load your orders';
     els.emptyStateMessage.textContent = message || 'Something went wrong while fetching your orders. Please try again.';
     els.clearFiltersBtn.textContent = 'Retry';
     els.clearFiltersBtn.dataset.mode = 'retry';
     els.emptyState.hidden = false;
-    refreshIcons();
   }
 
   /* ---------------------------------------------------------
@@ -658,7 +711,7 @@
       const iconName = i < currentIndex ? 'check' : (i === currentIndex ? 'circle-dot' : 'circle');
       html += `
         <li class="${cls}">
-          <span class="bk-track-dot"><i data-lucide="${iconName}"></i></span>
+          <span class="bk-track-dot">${icon(iconName)}</span>
           <div>
             <div class="bk-track-title">${step.label}</div>
             <div class="bk-track-time">${step.time}</div>
@@ -668,7 +721,7 @@
     html += '</ol>';
     html += `
       <div class="bk-track-eta">
-        <i data-lucide="calendar-clock"></i>
+        ${icon('calendar-clock')}
         <span>Expected Delivery <strong>${order.expectedDelivery}</strong></span>
       </div>`;
 
@@ -714,7 +767,7 @@
       </div>
 
       <div class="bk-support-note">
-        <i data-lucide="hand-heart"></i>
+        ${icon('hand-heart')}
         <span>You are supporting a local farmer with this purchase.</span>
       </div>
     `;
@@ -757,51 +810,26 @@
   /* ---------------------------------------------------------
      FETCH ORDERS — calls your viewOrders controller
   --------------------------------------------------------- */
-  /* ---------------------------------------------------------
-   FETCH ORDERS
---------------------------------------------------------- */
-async function fetchOrders() { 
-    els.loadingState.hidden = false; 
-    els.emptyState.hidden = true; 
-    els.ordersList.innerHTML = ''; 
-    els.loadMoreBtn.style.display = 'none'; 
- 
-    try { 
-        const res = await fetch('/biharikisan/buyer/view-Orders', { 
-            method: 'GET', 
-            credentials: 'include', 
-            headers: { 
-                'Accept': 'application/json' 
-            } 
-        }); 
- 
-        console.log("Status:", res.status); 
-        console.log("URL:", res.url); 
- 
-        const data = await res.json(); 
- 
-        console.log("Orders response:", data); 
- 
-        if (!res.ok || !data.success) { 
-            els.loadingState.hidden = true; 
-            showErrorState(data.message || 'Could not fetch your orders.'); 
-            return; 
-        } 
- 
-        const rawOrders = Array.isArray(data.orders) ? data.orders : []; 
-        ORDERS = rawOrders.map(normalizeOrder); 
- 
-        els.loadingState.hidden = true; 
-        renderStatCounts(); 
-        renderOrders(); 
- 
-    } catch (err) { 
-        console.error('fetchOrders failed:', err); 
- 
-        els.loadingState.hidden = true; 
-        showErrorState('Network error. Please check your connection and try again.'); 
-    } 
-}
+  async function fetchOrders() {
+    els.loadingState.hidden = false;
+    els.emptyState.hidden = true;
+    els.ordersList.innerHTML = '';
+    els.loadMoreBtn.style.display = 'none';
+
+    if (USE_MOCK_DATA) {
+      ORDERS = MOCK_ORDERS.slice();
+      els.loadingState.hidden = true;
+      renderStatCounts();
+      renderOrders();
+      return;
+    }
+
+    try {
+      const res = await fetch(CONFIG.API_BASE_URL + CONFIG.ORDERS_ENDPOINT, {
+        method: 'GET',
+        credentials: 'include', // sends the httpOnly refreshToken cookie
+        headers: { 'Accept': 'application/json' }
+      });
 
       // Not logged in / refresh token missing or invalid
       if (res.status === 401) {

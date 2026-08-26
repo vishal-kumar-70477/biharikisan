@@ -58,6 +58,25 @@ button { font-family: inherit; }
 
 img { max-width: 100%; display: block; }
 
+/* Base reset for inlined icon SVGs (see icon() helper in JS).
+   Each usage context overrides width/height/color as needed. */
+.lucide-ico {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.bk-inline-icon {
+  width: 15px;
+  height: 15px;
+  vertical-align: -2px;
+  margin-right: 2px;
+}
+.bk-inline-icon--success { color: var(--success); }
+.bk-inline-icon--sky { color: var(--sky); }
+
 .skip-link {
   position: absolute;
   left: -999px;
@@ -127,7 +146,7 @@ img { max-width: 100%; display: block; }
   text-decoration: none;
   transition: background .15s ease, color .15s ease;
 }
-.bk-nav-link i { width: 18px; height: 18px; flex-shrink: 0; }
+.bk-nav-link svg { width: 18px; height: 18px; flex-shrink: 0; }
 .bk-nav-link:hover { background: var(--hover); color: var(--primary-dark); }
 
 .bk-nav-link.is-active {
@@ -196,7 +215,7 @@ img { max-width: 100%; display: block; }
   transition: background .15s ease, border-color .15s ease;
 }
 .bk-menu-toggle:hover { background: var(--hover); border-color: var(--secondary); }
-.bk-menu-toggle i { width: 20px; height: 20px; }
+.bk-menu-toggle svg { width: 20px; height: 20px; }
 
 .bk-sidebar__brand,
 .bk-header__brand {
@@ -218,7 +237,7 @@ img { max-width: 100%; display: block; }
   color: var(--white);
   box-shadow: var(--shadow-sm);
 }
-.bk-logo-mark i { width: 22px; height: 22px; }
+.bk-logo-mark svg { width: 22px; height: 22px; }
 
 .bk-brand-text {
   display: flex;
@@ -305,7 +324,7 @@ img { max-width: 100%; display: block; }
   flex-shrink: 0;
 }
 .bk-icon-btn:hover { background: var(--hover); border-color: var(--secondary); }
-.bk-icon-btn i { width: 19px; height: 19px; }
+.bk-icon-btn svg { width: 19px; height: 19px; }
 
 .bk-badge-dot {
   position: absolute;
@@ -407,7 +426,7 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: center;
 }
-.bk-hero__total-icon i { width: 20px; height: 20px; }
+.bk-hero__total-icon svg { width: 20px; height: 20px; }
 
 .bk-hero__total-copy { display: flex; flex-direction: column; }
 .bk-hero__total-label { font-size: 12px; color: var(--text-mute); font-weight: 500; }
@@ -454,7 +473,7 @@ img { max-width: 100%; display: block; }
   flex-shrink: 0;
   color: var(--white);
 }
-.bk-stat-icon i { width: 19px; height: 19px; }
+.bk-stat-icon svg { width: 19px; height: 19px; }
 
 .bk-stat-icon--all { background: var(--primary); }
 .bk-stat-icon--processing { background: var(--warning); }
@@ -498,7 +517,7 @@ img { max-width: 100%; display: block; }
   flex: 1 1 260px;
   min-width: 220px;
 }
-.bk-toolbar__search i {
+.bk-toolbar__search svg {
   position: absolute;
   left: 13px;
   top: 50%;
@@ -645,7 +664,7 @@ img { max-width: 100%; display: block; }
   flex-shrink: 0;
   overflow: hidden;
 }
-.bk-product-img i { width: 30px; height: 30px; }
+.bk-product-img svg { width: 30px; height: 30px; }
 .bk-product-img img { width: 100%; height: 100%; object-fit: cover; }
 
 .bk-product-info { min-width: 0; }
@@ -682,7 +701,7 @@ img { max-width: 100%; display: block; }
   padding: 2px 8px;
   border-radius: 999px;
 }
-.bk-verified-badge i { width: 12px; height: 12px; }
+.bk-verified-badge svg { width: 12px; height: 12px; }
 
 .bk-farmer-location {
   display: flex;
@@ -692,7 +711,7 @@ img { max-width: 100%; display: block; }
   font-size: 12.5px;
   color: var(--text-mute);
 }
-.bk-farmer-location i { width: 13px; height: 13px; }
+.bk-farmer-location svg { width: 13px; height: 13px; }
 
 .bk-order-card__amount {
   display: flex;
@@ -769,7 +788,7 @@ img { max-width: 100%; display: block; }
   z-index: 1;
   color: var(--text-mute);
 }
-.bk-tracker__dot i { width: 12px; height: 12px; }
+.bk-tracker__dot svg { width: 12px; height: 12px; }
 
 .bk-tracker__label {
   font-size: 11px;
@@ -822,7 +841,7 @@ img { max-width: 100%; display: block; }
   font-weight: 500;
   margin-bottom: 16px;
 }
-.bk-cancelled-note i { width: 16px; height: 16px; flex-shrink: 0; }
+.bk-cancelled-note svg { width: 16px; height: 16px; flex-shrink: 0; }
 
 /* =========================================================
    ORDER ACTIONS
@@ -848,7 +867,7 @@ img { max-width: 100%; display: block; }
   gap: 6px;
 }
 .bk-btn:active { transform: scale(0.98); }
-.bk-btn i { width: 15px; height: 15px; }
+.bk-btn svg { width: 15px; height: 15px; }
 
 .bk-btn--primary {
   background: var(--primary);
@@ -926,7 +945,7 @@ img { max-width: 100%; display: block; }
   align-items: center;
   justify-content: center;
 }
-.bk-empty__icon i { width: 30px; height: 30px; }
+.bk-empty__icon svg { width: 30px; height: 30px; }
 .bk-empty h3 { font-size: 18px; margin-bottom: 6px; }
 .bk-empty p { color: var(--text-mute); font-size: 13.5px; margin-bottom: 20px; }
 
@@ -1005,7 +1024,7 @@ img { max-width: 100%; display: block; }
   flex-shrink: 0;
 }
 .bk-modal__close:hover { background: var(--hover); color: var(--error); border-color: rgba(229,57,53,0.3); }
-.bk-modal__close i { width: 17px; height: 17px; }
+.bk-modal__close svg { width: 17px; height: 17px; }
 
 .bk-modal__body { padding: 22px; }
 
@@ -1050,7 +1069,7 @@ img { max-width: 100%; display: block; }
   flex-shrink: 0;
   color: var(--text-mute);
 }
-.bk-track-dot i { width: 11px; height: 11px; }
+.bk-track-dot svg { width: 11px; height: 11px; }
 .bk-track-timeline li.is-done .bk-track-dot { background: var(--secondary); border-color: var(--secondary); color: var(--white); }
 .bk-track-timeline li.is-current .bk-track-dot { background: var(--primary); border-color: var(--primary); color: var(--white); box-shadow: 0 0 0 4px var(--hover); }
 
@@ -1068,7 +1087,7 @@ img { max-width: 100%; display: block; }
   gap: 10px;
   font-size: 13px;
 }
-.bk-track-eta i { width: 18px; height: 18px; color: var(--sky); flex-shrink: 0; }
+.bk-track-eta svg { width: 18px; height: 18px; color: var(--sky); flex-shrink: 0; }
 .bk-track-eta strong { color: var(--primary-dark); }
 
 /* Details modal */
@@ -1129,7 +1148,7 @@ img { max-width: 100%; display: block; }
   font-weight: 500;
   line-height: 1.4;
 }
-.bk-support-note i { width: 20px; height: 20px; color: var(--secondary); flex-shrink: 0; }
+.bk-support-note svg { width: 20px; height: 20px; color: var(--secondary); flex-shrink: 0; }
 
 /* =========================================================
    TOAST
@@ -1153,7 +1172,7 @@ img { max-width: 100%; display: block; }
   animation: bk-toast-in .25s ease both;
   max-width: 90vw;
 }
-.bk-toast i { width: 18px; height: 18px; color: var(--secondary); flex-shrink: 0; }
+.bk-toast svg { width: 18px; height: 18px; color: var(--secondary); flex-shrink: 0; }
 
 .bk-toast[hidden] {
   display: none !important;
@@ -1199,6 +1218,12 @@ img { max-width: 100%; display: block; }
 }
 
 @media (max-width: 720px) {
+  .bk-header__inner { padding: 0 16px; gap: 10px; }
+  .bk-header__actions { gap: 6px; }
+  .bk-icon-btn { width: 38px; height: 38px; }
+  .bk-profile { padding: 4px 8px 4px 4px; }
+  .bk-avatar { width: 30px; height: 30px; }
+
   .bk-main { padding: 20px 16px 70px; }
   .bk-stats { grid-template-columns: repeat(2, 1fr); }
   .bk-hero { align-items: flex-start; }
