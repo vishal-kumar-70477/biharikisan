@@ -1,91 +1,93 @@
 const mongoose = require("mongoose");
 
-const orderSchema = new mongoose.Schema({
+const orderSchema = new mongoose.Schema(
+    {
+        buyerId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Buyer",
+            required: true
+        },
 
-    buyerId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Buyer",
-        required: true
-    },
+        sellerId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Farmer",
+            required: true
+        },
 
-    sellerId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Farmer",
-        required: true
-    },
+        productId: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: "Product",
+            required: true
+        },
 
-    productId: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
-        required: true
-    },
-    productImageUri:{
-        type:String
-    },
+        productImageUri: {
+            type: String
+        },
 
-    quantity: {
-        type: Number,
-        required: true,
-        min: 1
-    },
+        quantity: {
+            type: Number,
+            required: true,
+            min: 1
+        },
 
-    priceAtOrder: {
-        type: Number,
-        required: true
-    },
+        priceAtOrder: {
+            type: Number,
+            required: true
+        },
 
-    totalAmount: {
-        type: Number,
-        required: true
-    },
+        totalAmount: {
+            type: Number,
+            required: true
+        },
 
-    orderStatus: {
-        type: String,
-        enum: [
-            "pending",
-            "confirmed",
-            "processing",
-            "shipped",
-            "delivered",
-            "cancelled"
-        ],
-        default: "pending"
-    },
+        orderStatus: {
+            type: String,
+            enum: [
+                "pending",
+                "confirmed",
+                "processing",
+                "shipped",
+                "delivered",
+                "cancelled"
+            ],
+            default: "pending"
+        },
 
-    paymentStatus: {
-        type: String,
-        enum: [
-            "pending",
-            "paid",
-            "failed",
-            "refunded"
-        ],
-        default: "pending"
-    },
+        paymentStatus: {
+            type: String,
+            enum: [
+                "pending",
+                "paid",
+                "failed",
+                "refunded"
+            ],
+            default: "pending"
+        },
 
-    paymentMethod: {
-        type: String,
-        enum: [
-            "cod",
-            "upi",
-            "card",
-            "netbanking"
-        ],
-        default:"cod"
-    },
+        paymentMethod: {
+            type: String,
+            enum: [
+                "cod",
+                "upi",
+                "card",
+                "netbanking"
+            ],
+            default: "cod"
+        },
 
-    deliveryAddress: {
-        name: String,
-        mobileNo: String,
-        village: String,
-        district: String,
-        state: String,
-        // pincode: String
+        deliveryAddress: {
+            name: String,
+            mobileNo: String,
+            village: String,
+            district: String,
+            state: String,
+            pincode: String
+        }
+    },
+    {
+        timestamps: true
     }
-
-}, {
-    timestamps: true
-});
+);
 
 const Order = mongoose.model("Order", orderSchema);
 
