@@ -112,57 +112,65 @@ async function orderPage(req,res){
 
 
 // place order
-async function placeOrder(req,res){
+// place order
+async function placeOrder(req, res) {
     const productId = req.params.id;
     const refreshToken = req.cookies.refreshToken;
-    if(!refreshToken){
+    if (!refreshToken) {
         return res.status(404).json({
-            success:false,
-            message:"Token not founbd"
+            success: false,
+            message: "Token not founbd"
         })
     }
-    
-    const decoded = jwt.verify(refreshToken,config.JWT_SECRET_KEY);
-    
-    if(!decoded){
+
+    const decoded = jwt.verify(refreshToken, config.JWT_SECRET_KEY);
+
+    if (!decoded) {
         return res.status(401).json({
-            success:false,
-            message:"Invalid Token"
+            success: false,
+            message: "Invalid Token"
         })
     }
-    
-    
-    
+
     const product = await productModel.findById(productId);
-    if(product.status == "inactive"){
+    if (product.status == "inactive") {
         return res.status(401).json({
-            success:false,
-            message:"Out of Stock"
+            success: false,
+            message: "Out of Stock"
         })
     }
-    
+
     const buyer = await buyerModel.findById(decoded.id);
-    
-    const {quantity,paymentMethod} = req.body;
+
+    const { quantity, paymentMethod } = req.body;
     const buyerId = decoded.id;
     const sellerId = product.sellerId;
     const priceAtOrder = product.productPrice;
     const totalAmount = quantity * priceAtOrder;
     const productDesc = product.productDesc;
     const sellerName = product.sellerName;
-    const deliveryAddress = {
-        name:buyer.fullName,
-        mobileNo:buyer.mobileNo,
-        state:buyer.address.state,
-        village:buyer.address.village,
-        district:buyer.address.district,
 
+    // seller ka address fetch karke snapshot save karenge (populate ki zaroorat nahi padegi)
+    const seller = await buyerModel.findById(sellerId).select("address");
+
+    const sellerAddress = {
+        village: seller?.address?.village || "",
+        district: seller?.address?.district || "",
+        state: seller?.address?.state || ""
+    };
+
+    const deliveryAddress = {
+        name: buyer.fullName,
+        mobileNo: buyer.mobileNo,
+        state: buyer.address.state,
+        village: buyer.address.village,
+        district: buyer.address.district,
     }
 
-    if(quantity > product.productQuantity){
+    if (quantity > product.productQuantity) {
         return res.status(409).json({
-            success:false,
-            message:"Please enter quantity less than available quantity"
+            success: false,
+            message: "Please enter quantity less than available quantity"
         })
     }
     const productImageUri = product.productImageUri;
@@ -173,13 +181,13 @@ async function placeOrder(req,res){
         productId,
         sellerName,
         productDesc,
+        sellerAddress,
         productImageUri,
         quantity,
         priceAtOrder,
         totalAmount,
         deliveryAddress,
         paymentMethod
-
     });
     order.orderStatus = "confirmed";
     await order.save();
@@ -190,16 +198,10 @@ async function placeOrder(req,res){
     await product.save();
 
     return res.status(200).json({
-        success:true,
-        message:"Order Placed Successfully"
-})
-
-
-
-
-
+        success: true,
+        message: "Order Placed Successfully"
+    })
 }
-
 
 // add to cart
 async function addToCart(req, res) {

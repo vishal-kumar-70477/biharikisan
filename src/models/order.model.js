@@ -11,21 +11,30 @@ const orderSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    productDesc: {
-    type: String,
-    required: true
-},
 
-sellerName: {
-    type: String,
-    required: true
-},
+    productDesc: {
+        type: String,
+        required: true
+    },
+
+    sellerName: {
+        type: String,
+        required: true
+    },
+
+    sellerAddress: {
+        village: String,
+        district: String,
+        state: String
+    },
+
     productId: {
         type: mongoose.Schema.Types.ObjectId,
         required: true
     },
-    productImageUri:{
-        type:String
+
+    productImageUri: {
+        type: String
     },
 
     quantity: {
@@ -76,7 +85,7 @@ sellerName: {
             "card",
             "netbanking"
         ],
-        default:"cod"
+        default: "cod"
     },
 
     deliveryAddress: {
@@ -84,8 +93,7 @@ sellerName: {
         mobileNo: String,
         village: String,
         district: String,
-        state: String,
-        // pincode: String
+        state: String
     }
 
 }, {

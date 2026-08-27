@@ -166,7 +166,9 @@
         ? raw.sellerId
         : {};
 
-    const address = seller.address || {};
+    // ab sellerAddress order document mein top-level saved hai,
+    // isliye populate ki zaroorat nahi — fallback ke liye seller.address bhi check kar rahe hain
+    const address = raw.sellerAddress || seller.address || {};
 
     const quantity = Number(raw.quantity || 1);
 
@@ -191,6 +193,7 @@
       id: String(raw._id || raw.orderId || raw.id || ''),
 
       productName:
+        raw.productDesc ||
         product.productDesc ||
         product.productName ||
         product.name ||
@@ -208,6 +211,7 @@
       pricePerUnit,
 
       farmerName:
+        raw.sellerName ||
         seller.sellerName ||
         seller.fullName ||
         seller.name ||
