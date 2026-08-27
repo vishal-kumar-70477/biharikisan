@@ -148,6 +148,8 @@ async function placeOrder(req,res){
     const sellerId = product.sellerId;
     const priceAtOrder = product.productPrice;
     const totalAmount = quantity * priceAtOrder;
+    const productDesc = product.productDesc;
+    const sellerName = product.sellerName;
     const deliveryAddress = {
         name:buyer.fullName,
         mobileNo:buyer.mobileNo,
@@ -169,6 +171,8 @@ async function placeOrder(req,res){
         buyerId,
         sellerId,
         productId,
+        sellerName,
+        productDesc,
         productImageUri,
         quantity,
         priceAtOrder,

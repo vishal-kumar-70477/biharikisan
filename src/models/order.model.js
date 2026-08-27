@@ -4,19 +4,24 @@ const orderSchema = new mongoose.Schema({
 
     buyerId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Buyer",
         required: true
     },
 
     sellerId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Farmer",
         required: true
     },
+    productDesc: {
+    type: String,
+    required: true
+},
 
+sellerName: {
+    type: String,
+    required: true
+},
     productId: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Product",
         required: true
     },
     productImageUri:{
