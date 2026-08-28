@@ -155,6 +155,15 @@
      NORMALIZE BACKEND DATA
   --------------------------------------------------------- */
 
+  function escapeHtml(value) {
+    return String(value ?? '')
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#039;');
+  }
+
   function normalizeOrder(raw) {
     const product =
       raw.productId && typeof raw.productId === 'object'
@@ -191,6 +200,13 @@
 
     return {
       id: String(raw._id || raw.orderId || raw.id || ''),
+
+      productImage:
+        raw.productImageUri ||
+        raw.productImage ||
+        product.productImageUri ||
+        product.productImage ||
+        '',
 
       productName:
         raw.productDesc ||
@@ -614,7 +630,17 @@
     const productImage = node.querySelector('.bk-product-img');
 
     if (productImage) {
-      productImage.innerHTML = icon(productIcon);
+      productImage.innerHTML = order.productImage
+        ? `<img src="${escapeHtml(order.productImage)}" alt="${escapeHtml(order.productName)}" loading="lazy">`
+        : icon(productIcon);
+
+      const image = productImage.querySelector('img');
+
+      if (image) {
+        image.addEventListener('error', () => {
+          productImage.innerHTML = icon(productIcon);
+        }, { once: true });
+      }
     }
 
     const productName = node.querySelector('.bk-product-name');
