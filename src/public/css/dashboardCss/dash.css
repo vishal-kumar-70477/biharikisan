@@ -204,35 +204,50 @@
   }
   .search-bar button i{ color:#fff; font-size:19px; }
 
-  /* ---------- Category nav ---------- */
+  /* ---------- Category nav (hoarding-style pills) ---------- */
   .catnav{
     background: var(--primary);
-    color:#fff;
     display:flex;
     align-items:center;
-    gap:6px;
-    padding: 0 20px;
+    gap:10px;
+    padding: 10px 16px;
     overflow-x:auto;
     scrollbar-width:none;
   }
   .catnav::-webkit-scrollbar{ display:none; }
+  .catnav a,
   .cat-link{
-    font-size:14px;
-    font-weight:700;
-    padding:11px 12px;
+    flex-shrink:0;
     white-space:nowrap;
-    border-bottom:2.5px solid transparent;
+    display:inline-flex;
+    align-items:center;
+    background: rgba(255,255,255,0.14);
     color:#fff;
+    font-size:13.5px;
+    font-weight:700;
+    padding:9px 16px;
+    border-radius:12px;
+    border:1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 2px 6px rgba(0,0,0,0.08);
+    transition: background .2s ease, transform .2s ease;
   }
-  .cat-link:hover{ background: rgba(255,255,255,0.10); border-radius:6px; }
-  .cat-link.active{ border-bottom-color:#fff; }
-  .cat-link.highlight{
+  .catnav a:hover,
+  .cat-link:hover{
+    background: rgba(255,255,255,0.26);
+    transform: translateY(-1px);
+  }
+  .catnav a.active,
+  .cat-link.active{
+    background:#fff;
     color: var(--primary-dark);
-    background:#FFE082;
-    border-radius:8px;
-    padding:7px 14px;
-    margin:6px 0;
   }
+  .catnav a.highlight,
+  .cat-link.highlight{
+    background:#FFE082;
+    color: var(--primary-dark);
+    border-color:#FFE082;
+  }
+  .catnav a.highlight:hover,
   .cat-link.highlight:hover{ background:#FFD65C; }
 
   /* ---------- Mobile drawer ---------- */
@@ -408,8 +423,8 @@
   .hero-img img{ 
     border-radius:12px; 
     box-shadow: var(--shadow-md); 
-    max-height:280px; 
-    object-fit:cover; 
+    max-height:260px; 
+    object-fit:contain; 
     width:100%; 
   }
 
@@ -709,6 +724,7 @@
   @media (max-width: 900px){
     .hero{ grid-template-columns: 1fr; }
     .hero-img{ order:-1; padding:20px; }
+    .hero-img img{ max-height:200px; }
     .seller-cta{ grid-template-columns: 1fr; }
     .seller-cta-img{ order:-1; }
   }
