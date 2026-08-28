@@ -1274,7 +1274,7 @@ img { max-width: 100%; display: block; }
   .bk-order-card__actions .bk-btn { flex: 1; justify-content: center; }
 
   .bk-modal__body { padding: 18px; }
-}
+
 
 @media (max-width: 480px) {
   .bk-stats { grid-template-columns: 1fr 1fr; }
