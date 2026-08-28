@@ -654,16 +654,50 @@ input{ font-family:inherit; }
   .visual{ display:none; }
   .auth{ height:auto; overflow-y:visible; padding:40px 32px; }
 }
+/* =========================================================
+   LOGIN FORM WATERMARK — MOBILE ONLY
+   ========================================================= */
+.login-form-area{
+  position: relative;
+}
+@media (max-width: 768px){
 
-@media (max-width:640px){
-  .page{ padding:16px 12px 36px; }
-  .header__inner{ padding:12px 16px; }
-  .nav__cta{ padding:10px 16px; font-size:13px; }
-  .auth{ padding:30px 20px; }
-  .form__row--split{ grid-template-columns:1fr; }
-  .h1{ font-size:24px; }
-  .otp__box{ width:44px; height:48px; }
-  .frame__panel{ min-height:0; border-radius:24px; border-width:4px; }
-  .brand__name{ font-size:15px; }
-  .tagline{ font-size:16px; }
+  /* Remove the old bottom farming image + floaters + caption
+     so it doesn't appear twice on mobile */
+  .visual__art,
+  .visual__caption{
+    display: none !important;
+  }
+
+  /* Subtle watermark behind the login field block only */
+  .login-form-area{
+    padding: 14px 12px;
+    margin: 2px 0 4px;
+    border-radius: var(--radius-md);
+    overflow: hidden;
+  }
+
+  .login-form-area::before{
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: url('/photos/registerImg.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: blur(1px);
+    opacity: 0.10;
+    z-index: 0;
+    pointer-events: none;
+    border-radius: inherit;
+  }
+
+  .login-form-area > *{
+    position: relative;
+    z-index: 1;
+  }
+
+  /* keep inputs crisp and readable over the watermark */
+  .login-form-area .field__input{
+    background: rgba(255,255,255,0.9);
+  }
 }

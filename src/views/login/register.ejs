@@ -67,32 +67,35 @@
             <p class="sub">Login to manage your farming journey.</p>
 
             <form class="form" id="loginForm" novalidate>
-              <p class="form__error" id="loginError" role="alert" hidden></p>
-              <label class="field">
-                <span class="field__label">Mobile number or email</span>
-                <input class="field__input" type="text" name="loginId" placeholder="98xxxxxxxx or you@example.com" required>
-              </label>
+  <p class="form__error" id="loginError" role="alert" hidden></p>
 
-              <label class="field">
-                <span class="field__label">Password</span>
-                <div class="field__pw">
-                  <input class="field__input" type="password" name="password" placeholder="Enter your password" required>
-                  <button type="button" class="field__eye" data-toggle-pw aria-label="Show password">
-                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M1.5 10S4.5 4 10 4s8.5 6 8.5 6-3 6-8.5 6-8.5-6-8.5-6Z" stroke="currentColor" stroke-width="1.4"/><circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.4"/></svg>
-                  </button>
-                </div>
-              </label>
+  <div class="login-form-area">
+    <label class="field">
+      <span class="field__label">Mobile number or email</span>
+      <input class="field__input" type="text" name="loginId" placeholder="98xxxxxxxx or you@example.com" required>
+    </label>
 
-              <div class="form__row form__row--between">
-                <label class="check">
-                  <input type="checkbox" name="remember">
-                  <span>Remember me</span>
-                </label>
-                <a href="#" class="link">Forgot password?</a>
-              </div>
+    <label class="field">
+      <span class="field__label">Password</span>
+      <div class="field__pw">
+        <input class="field__input" type="password" name="password" placeholder="Enter your password" required>
+        <button type="button" class="field__eye" data-toggle-pw aria-label="Show password">
+          <svg width="20" height="20" viewBox="0 0 20 20" fill="none"><path d="M1.5 10S4.5 4 10 4s8.5 6 8.5 6-3 6-8.5 6-8.5-6-8.5-6Z" stroke="currentColor" stroke-width="1.4"/><circle cx="10" cy="10" r="2.5" stroke="currentColor" stroke-width="1.4"/></svg>
+        </button>
+      </div>
+    </label>
 
-              <button class="btn btn--dark btn--block" type="submit">Log In</button>
-            </form>
+    <div class="form__row form__row--between">
+      <label class="check">
+        <input type="checkbox" name="remember">
+        <span>Remember me</span>
+      </label>
+      <a href="#" class="link">Forgot password?</a>
+    </div>
+  </div>
+
+  <button class="btn btn--dark btn--block" type="submit">Log In</button>
+</form>
 
             <p class="switch">New to Bihari Kisan? <button type="button" class="link link--strong" id="goRegister">Create an account</button></p>
           </div>
