@@ -1232,7 +1232,19 @@ img { max-width: 100%; display: block; }
   .bk-icon-btn { width: 38px; height: 38px; }
   .bk-profile { padding: 4px 8px 4px 4px; }
   .bk-avatar { width: 30px; height: 30px; }
+    /* ...existing rules... */
 
+  .bk-order-card__product {
+    flex: initial;      /* reset the 320px flex-basis so it doesn't become height */
+    width: 100%;
+    min-width: 0;
+  }
+
+  .bk-order-card__amount {
+    width: 100%;
+    margin-top: 4px;    /* tiny gap between product block and amount block */
+  }
+}
   .bk-main { padding: 20px 16px 70px; }
   .bk-stats { grid-template-columns: repeat(2, 1fr); }
   .bk-hero { align-items: flex-start; }
