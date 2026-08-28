@@ -152,7 +152,7 @@
   var steps = Array.prototype.slice.call(registerForm.querySelectorAll('.step'));
   var progressSteps = Array.prototype.slice.call(document.querySelectorAll('#progress .progress__step'));
   var currentStep = 1;
-
+  
   function goToStep(n) {
     currentStep = n;
     hideError(formError);
@@ -206,7 +206,8 @@
   var districtInput = registerForm.querySelector('input[name="district"]');
   var stateInput = registerForm.querySelector('input[name="state"]');
   var passwordInput = registerForm.querySelector('input[name="password"]');
-
+  var pincodeInput = registerForm.querySelector('input[name="pincode"]');
+  
   /* ============ OTP BOXES ============ */
   document.querySelectorAll('.otp').forEach(function (group) {
     var boxes = Array.prototype.slice.call(group.querySelectorAll('.otp__box'));
@@ -249,10 +250,11 @@
       email: emailInput.value.trim(),
       mobileNo: mobileInput.value.trim(),
       address: {
-        village: villageInput.value.trim(),
-        district: districtInput.value.trim(),
-        state: stateInput.value.trim(),
-      },
+  village: villageInput.value.trim(),
+  district: districtInput.value.trim(),
+  state: stateInput.value.trim(),
+  pincode: pincodeInput.value.trim(),
+   },
       password: passwordInput.value.trim(),
       role: selectedRole
     };

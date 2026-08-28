@@ -521,8 +521,16 @@ input{ font-family:inherit; }
 .role-card.is-selected .role-card__check{ opacity:1; transform:scale(1); }
 
 @media (max-width:640px){
-  .roles{ grid-template-columns:1fr; }
+   .form__row--split{
+    grid-template-columns: 1fr;   /* stack fields on small screens */
+  }
+  .auth{
+    padding: 32px 20px;           /* thoda kam padding narrow screens pe */
+  }
 }
+  .roles{ grid-template-columns:1fr; 
+  }
+
 
 /* =========================================================
    SUCCESS
@@ -685,7 +693,7 @@ input{ font-family:inherit; }
     background-size: cover;
     background-position: center;
     /* filter: blur(0.5px); */
-    opacity: 0.20;
+    opacity: 0.42;
     z-index: 0;
     pointer-events: none;
     border-radius: inherit;
@@ -698,6 +706,6 @@ input{ font-family:inherit; }
 
   /* keep inputs crisp and readable over the watermark */
   .login-form-area .field__input{
-    background: rgba(255,255,255,0.9);
+     background: rgba(255,255,255,0.92);
   }
 }
