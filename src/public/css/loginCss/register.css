@@ -685,7 +685,7 @@ input{ font-family:inherit; }
     background-size: cover;
     background-position: center;
     filter: blur(1px);
-    opacity: 0.10;
+    opacity: 0.20;
     z-index: 0;
     pointer-events: none;
     border-radius: inherit;
