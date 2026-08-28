@@ -6,7 +6,8 @@
      Adjust these to match how your Express routes are mounted, e.g.
      app.use('/api/buyer', buyerRoutes)  ->  router.post('/register', register); router.post('/verify-otp', otpVerification);
   ============================================= */
-  var API_BASE_URL = 'https://biharikisan.onrender.com';
+  // The page and API are served by the same Express app.
+  var API_BASE_URL = '';
   var ENDPOINTS = {
     register: '/biharikisan/auth/register',
     verifyOtp: '/biharikisan/auth/otp-verification'
@@ -76,7 +77,7 @@
      There is no login endpoint in the backend yet (buyer.model has no
      password field and buyer.controller only exports register/otpVerification),
      so this just surfaces that honestly instead of pretending to log in. */
-   /* ============ LOGIN SUBMIT ============ */
+  /* ============ LOGIN SUBMIT ============ */
 
   var loginForm = document.getElementById('loginForm');
   var loginError = document.getElementById('loginError');
@@ -152,7 +153,7 @@
   var steps = Array.prototype.slice.call(registerForm.querySelectorAll('.step'));
   var progressSteps = Array.prototype.slice.call(document.querySelectorAll('#progress .progress__step'));
   var currentStep = 1;
-  
+
   function goToStep(n) {
     currentStep = n;
     hideError(formError);
@@ -207,7 +208,7 @@
   var stateInput = registerForm.querySelector('input[name="state"]');
   var passwordInput = registerForm.querySelector('input[name="password"]');
   var pincodeInput = registerForm.querySelector('input[name="pincode"]');
-  
+
   /* ============ OTP BOXES ============ */
   document.querySelectorAll('.otp').forEach(function (group) {
     var boxes = Array.prototype.slice.call(group.querySelectorAll('.otp__box'));
@@ -250,11 +251,11 @@
       email: emailInput.value.trim(),
       mobileNo: mobileInput.value.trim(),
       address: {
-  village: villageInput.value.trim(),
-  district: districtInput.value.trim(),
-  state: stateInput.value.trim(),
-  pincode: pincodeInput.value.trim(),
-   },
+        village: villageInput.value.trim(),
+        district: districtInput.value.trim(),
+        state: stateInput.value.trim(),
+        pincode: pincodeInput.value.trim(),
+      },
       password: passwordInput.value.trim(),
       role: selectedRole
     };
@@ -334,27 +335,27 @@
   });
 
   /* ============ STEP 4 : DONE ============ */
-var dashboardBtn = document.getElementById('dashboardBtn');
+  var dashboardBtn = document.getElementById('dashboardBtn');
 
-if (dashboardBtn) {
-  dashboardBtn.addEventListener('click', function () {
+  if (dashboardBtn) {
+    dashboardBtn.addEventListener('click', function () {
 
-    if (selectedRole === 'buyer') {
-      window.location.href = '/buyerDash';
-    }
+      if (selectedRole === 'buyer') {
+        window.location.href = '/buyerDash';
+      }
 
-    else if (selectedRole === 'seller') {
-      window.location.href = '/farmerDash';
-    }
+      else if (selectedRole === 'seller') {
+        window.location.href = '/farmerDash';
+      }
 
-    else if (selectedRole === 'driver') {
-      window.location.href = '/driverDash';
-    }
+      else if (selectedRole === 'driver') {
+        window.location.href = '/driverDash';
+      }
 
-    else {
-      alert('Role not selected');
-    }
+      else {
+        alert('Role not selected');
+      }
 
-  });
-}
+    });
+  }
 })();
