@@ -24,12 +24,16 @@
   }
   html{ 
     scroll-behavior:smooth; 
+    max-width:100%;
+    overflow-x:hidden;
   }
   body{ 
     font-family:'Inter','Noto Sans Devanagari',sans-serif; 
     background:var(--bg); 
     color:var(--text); 
     -webkit-font-smoothing:antialiased; 
+    max-width:100%;
+    overflow-x:hidden;
   }
   h1,h2,h3,h4,.brand{ 
     font-family:'Poppins','Noto Sans Devanagari',sans-serif; 
@@ -66,6 +70,8 @@
     display:flex;
     align-items:center;
     gap:18px;
+    width:100%;
+    min-width:0;
   }
 
   .brand{ 
@@ -73,7 +79,9 @@
     align-items:center; 
     gap:8px; font-size:20px; 
     font-weight:800; 
-    flex-shrink:0; 
+    flex-shrink:1; 
+    min-width:0; 
+    overflow:hidden;
   }
   .brand .leaf{ 
   font-size:22px; 
@@ -93,7 +101,8 @@
     padding:6px 10px;
     border-radius:8px;
     border:1px solid transparent;
-    flex-shrink:0;
+    flex-shrink:1;
+    min-width:0;
   }
   .location:hover,
   .location:focus-visible{ border-color: rgba(255,255,255,0.35); }
@@ -106,7 +115,7 @@
   .top-right{
     display:flex;
     align-items:center;
-    gap:8px;
+    gap:4px;
     margin-left:auto;
     flex-shrink:0;
   }
@@ -327,12 +336,26 @@
     .topbar{ padding:10px 14px 12px; gap:8px; }
     .location{ padding:4px 6px; }
     .location .l1{ display:none; }
-    .top-right{ gap:4px; }
-    .top-right-item{ padding:8px; }
+    .top-right{ gap:2px; }
+    .top-right-item{ padding:6px; }
     .login-item .label{ display:inline; font-size:12.5px; }
     .cart-item .label{ display:none; }
     .search-select{ max-width:64px; font-size:13px; }
     .search-bar{ height:42px; }
+  }
+
+  /* ---------- Extra-narrow phones (<=380px): brand shrinks, hamburger stays reachable ---------- */
+  @media (max-width: 380px){
+    .brand{ font-size:16px; gap:5px; }
+    .brand .leaf{ font-size:18px; }
+    .brand-sub{ display:none; }
+    .topbar-row1{ gap:8px; }
+    .location .location-text{ display:none; }
+    .location svg{ margin:0; }
+    .top-right-item{ padding:5px; }
+    .top-right-item i{ font-size:17px; }
+    .login-item .label{ font-size:11.5px; }
+    .hamburger-btn{ width:34px; height:34px; }
   }
 
   .hero{
