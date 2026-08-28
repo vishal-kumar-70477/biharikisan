@@ -2,8 +2,7 @@
    BIHARI KISAN — Payment Page Logic
    ========================================================================== */
 
-const API_BASE = "/api";
-const ORDER_ENDPOINT = `${API_BASE}/place-order`;
+const API_BASE = "/biharikisan/buyer";
 
 const FALLBACK_ORDER = {
   productId: "BK-CROP-1042",
@@ -137,16 +136,32 @@ async function placeOrder() {
   };
 
   try {
-    await fetch(ORDER_ENDPOINT, {
+    const response = await fetch(
+      `${API_BASE}/place-Order/${order.productId}`,
+      {
       method: "POST",
       credentials: "include",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(finalOrder)
-    });
+      body: JSON.stringify({
+        quantity: order.quantity,
+        paymentMethod: selectedMethod
+      })
+      }
+    );
+
+    const data = await response.json();
+
+    if (!response.ok || !data.success) {
+      throw new Error(data.message || "Order place nahi hua");
+    }
+
+    finalOrder.orderId = data.orderId;
   } catch (err) {
-    // Backend not reachable in this preview environment — proceed with the
-    // locally generated order so the flow still completes end-to-end.
-    console.warn("Order API unavailable, continuing with local order data:", err);
+    console.error("Order placement failed:", err);
+    alert(err.message || "Order place nahi hua");
+    placeOrderBtn.disabled = false;
+    btnLabel.textContent = "Place Order";
+    return;
   }
 
   localStorage.setItem("bkConfirmedOrder", JSON.stringify(finalOrder));

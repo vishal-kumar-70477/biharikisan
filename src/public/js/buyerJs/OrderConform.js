@@ -2,9 +2,9 @@
    BIHARI KISAN — Order Success Page Logic
    ========================================================================== */
 
-const API_BASE = "/api";
+const API_BASE = "/biharikisan/buyer";
 
-const ORDER_STATUS_ENDPOINT = `${API_BASE}/orders`;
+const ORDER_STATUS_ENDPOINT = `${API_BASE}/view-Order`;
 
 
 /* ==========================================================================
@@ -268,24 +268,45 @@ function renderConfirmedOrder(order) {
    INITIALIZE PAGE
    ========================================================================== */
 
-const confirmedOrder =
-  loadConfirmedOrder();
+async function loadOrderFromBackend() {
+  const localOrder = loadConfirmedOrder();
 
+  try {
+    const response = await fetch(
+      `${ORDER_STATUS_ENDPOINT}/${localOrder.orderId}`,
+      {
+        credentials: "include",
+        headers: { Accept: "application/json" }
+      }
+    );
+    const data = await response.json();
 
-renderConfirmedOrder(confirmedOrder);
+    if (!response.ok || !data.success) {
+      throw new Error(data.message || "Order details load nahi hue");
+    }
 
+    const backendOrder = data.order;
+    const confirmedOrder = {
+      orderId: backendOrder._id,
+      orderDate: backendOrder.createdAt,
+      productName: backendOrder.productDesc,
+      sellerName: backendOrder.sellerName,
+      sellerLocation: [
+        backendOrder.sellerAddress?.village,
+        backendOrder.sellerAddress?.district,
+        backendOrder.sellerAddress?.state
+      ].filter(Boolean).join(", "),
+      quantity: backendOrder.quantity,
+      unit: "KG",
+      paymentMethod: backendOrder.paymentMethod,
+      total: backendOrder.totalAmount
+    };
 
-/* ==========================================================================
-   OPTIONAL BACKEND VERIFICATION
-   ========================================================================== */
+    renderConfirmedOrder(confirmedOrder);
+  } catch (error) {
+    console.error("Order details load failed:", error);
+    renderConfirmedOrder(localOrder);
+  }
+}
 
-fetch(`${ORDER_STATUS_ENDPOINT}/${confirmedOrder.orderId}`, {
-  credentials: "include"
-})
-  .then(response => response.json())
-  .then(data => {
-    console.log("Order status:", data);
-  })
-  .catch(error => {
-    console.warn("Order status verification failed:", error);
-  });
+loadOrderFromBackend();

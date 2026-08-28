@@ -199,8 +199,69 @@ async function placeOrder(req, res) {
 
     return res.status(200).json({
         success: true,
-        message: "Order Placed Successfully"
+        message: "Order Placed Successfully",
+        orderId: order._id
     })
+}
+
+// view one order
+async function viewOrder(req, res) {
+    try {
+        const refreshToken = req.cookies.refreshToken;
+        if (!refreshToken) {
+            return res.status(401).json({
+                success: false,
+                message: "Token not found"
+            });
+        }
+
+        const decoded = jwt.verify(refreshToken, config.JWT_SECRET_KEY);
+
+        if (decoded.role !== "buyer") {
+            return res.status(403).json({
+                success: false,
+                message: "You are not a buyer"
+            });
+        }
+
+        const order = await orderModel.findOne({
+            _id: req.params.id,
+            buyerId: decoded.id
+        });
+
+        if (!order) {
+            return res.status(404).json({
+                success: false,
+                message: "Order not found"
+            });
+        }
+
+        return res.status(200).json({
+            success: true,
+            order
+        });
+    } catch (error) {
+        console.error("Failed to fetch order:", error);
+
+        if (error.name === "JsonWebTokenError" || error.name === "TokenExpiredError") {
+            return res.status(401).json({
+                success: false,
+                message: "Invalid or expired token"
+            });
+        }
+
+        if (error.name === "CastError") {
+            return res.status(404).json({
+                success: false,
+                message: "Order not found"
+            });
+        }
+
+        return res.status(500).json({
+            success: false,
+            message: "Unable to fetch order"
+        });
+    }
 }
 
 // add to cart
@@ -661,4 +722,4 @@ async function viewAddresses(req, res) {
     }
 }
 
-module.exports = {browseProducts,placeOrder,orderPage,addToCart,deleteFromCart,viewCart,editAddress,addAddress,viewOrders,viewAddresses};
+module.exports = {browseProducts,placeOrder,viewOrder,orderPage,addToCart,deleteFromCart,viewCart,editAddress,addAddress,viewOrders,viewAddresses};

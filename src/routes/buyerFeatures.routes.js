@@ -6,6 +6,7 @@ const buyerFeaturesRouter = express.Router();
 
 buyerFeaturesRouter.get("/browse-Products",buyerFeaturesController.browseProducts);
 buyerFeaturesRouter.post("/place-Order/:id",buyerFeaturesController.placeOrder);
+buyerFeaturesRouter.get("/view-Order/:id",buyerFeaturesController.viewOrder);
 buyerFeaturesRouter.get("/order-Page/:id",buyerFeaturesController.orderPage);
 buyerFeaturesRouter.post("/add-To-Cart/:id",buyerFeaturesController.addToCart);
 buyerFeaturesRouter.delete("/delete-From-Cart/:id",buyerFeaturesController.deleteFromCart)
