@@ -530,43 +530,48 @@ async function addAddress(req,res){
 
 // view my orders
 async function viewOrders(req,res){
-    const refreshToken = req.cookies.refreshToken;
-    if(!refreshToken){
-        return res.status(401).json({
-            success:false,
-            message:"refresh token not found"
-        })
-    }
+    try {
+        const refreshToken = req.cookies.refreshToken;
+        if(!refreshToken){
+            return res.status(401).json({
+                success:false,
+                message:"refresh token not found"
+            })
+        }
 
-    const decoded = jwt.verify(refreshToken,config.JWT_SECRET_KEY);
+        const decoded = jwt.verify(refreshToken,config.JWT_SECRET_KEY);
 
-    if(!decoded){
-        return res.status(401).json({
-            success:false,
-            message:"invalid token"
-        })
-    }
+        if(decoded.role !== "buyer"){
+            return res.status(403).json({
+                success:false,
+                message:"You are not a buyer"
+            })
+        }
 
-    if(decoded.role !== "buyer"){
-        return res.status(403).json({
+        const orders = await orderModel.find({
+            buyerId: decoded.id
+        }).sort({ createdAt: -1 });
+
+        return res.status(200).json({
+            success:true,
+            message: orders.length ? "My orders fetched" : "No ordered Products available",
+            orders
+        })
+    } catch (error) {
+        console.error("Failed to fetch buyer orders:", error);
+
+        if (error.name === "JsonWebTokenError" || error.name === "TokenExpiredError") {
+            return res.status(401).json({
+                success:false,
+                message:"invalid or expired token"
+            })
+        }
+
+        return res.status(500).json({
             success:false,
-            message:"You are not a buyer"
+            message:"Unable to fetch orders"
         })
     }
-   const orders = await orderModel.find({
-    buyerId: decoded.id
-})
-    if(!orders){
-        return res.status(404).json({
-            success:false,
-            message:"No ordered Products available"
-        })
-    }
-    return res.status(200).json({
-        success:true,
-        message:"My orders fetched",
-        orders
-    })
 
 }
 // ============================================================
