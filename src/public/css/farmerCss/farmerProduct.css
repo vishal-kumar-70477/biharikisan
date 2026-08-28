@@ -62,8 +62,11 @@
 }
 @media (max-width: 900px) {
   .pu-layout { grid-template-columns: 1fr; }
+  .pu-upload-card {
+    position: static;
+    top: auto;
+  }
 }
- 
 /* ---------- Upload card ---------- */
 .pu-upload-card {
   background: #fff;
