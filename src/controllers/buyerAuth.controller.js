@@ -208,10 +208,10 @@ async function login(req, res) {
         dashboard = "/buyerDash";
     }
     else if (isUserExist.role === "seller") {
-        dashboard = "/dash/register/farmerDash";
+        dashboard = "/farmerDash";
     }
     else if (isUserExist.role === "driver") {
-        dashboard = "/dash/register/driverDash";
+        dashboard = "/driverDash";
     }
     else {
         return res.status(400).json({

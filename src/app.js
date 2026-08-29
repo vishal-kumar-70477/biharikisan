@@ -162,6 +162,11 @@ app.get("/farmerDash", async (req, res) => {
     }
 });
 
+// Keep the old dashboard URL working for existing clients/bookmarks.
+app.get("/dash/register/farmerDash", (req, res) => {
+    res.redirect("/farmerDash");
+});
+
 app.get("/allproduct", async (req, res) => {
     try {
         const refreshToken = req.cookies.refreshToken;
