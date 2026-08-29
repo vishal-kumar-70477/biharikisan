@@ -20,11 +20,14 @@ else if(!process.env.GOOGLE_CLIENT_SECRET){
 else if(!process.env.GOOGLE_REFRESH_TOKEN){
     throw console.error("google refresh token is not defined")
 }
-else if(!process.env.GOOGLE_USER){
+else if(!process.env.SENDER){
     throw console.error("google user is not defined")
 }
 else if(!process.env.IMAGEKIT_PRIVATE_KEY){
     throw console.error("image kit private key is required")
+}
+else if(!process.env.EMAIL_API_KEY){
+    throw console.error("Email api key is not defined")
 }
 
 const config = {
@@ -33,8 +36,9 @@ const config = {
     GOOGLE_CLIENT_ID:process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET:process.env.GOOGLE_CLIENT_SECRET,
     GOOGLE_REFRESH_TOKEN:process.env.GOOGLE_REFRESH_TOKEN,
-    GOOGLE_USER:process.env.GOOGLE_USER,
-    IMAGEKIT_PRIVATE_KEY:process.env.IMAGEKIT_PRIVATE_KEY
+    SENDER:process.env.SENDER,
+    IMAGEKIT_PRIVATE_KEY:process.env.IMAGEKIT_PRIVATE_KEY,
+    EMAIL_API_KEY:process.env.EMAIL_API_KEY
 }
 
 
