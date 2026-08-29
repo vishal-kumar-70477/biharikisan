@@ -303,6 +303,7 @@
   function openAddModal(){
     window.location.href = '/farmerProduct';
   }
+  document.getElementById('addProductBtn').addEventListener('click', openAddModal);
   function openEditModal(id){
     const p = products.find(x=>x.id===id);
     if(!p) return;

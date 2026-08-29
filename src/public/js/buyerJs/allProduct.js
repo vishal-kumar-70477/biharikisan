@@ -548,4 +548,4 @@ document
 
 
 // ---- Init ----
-fetchProducts();
+fetchProducts();a
