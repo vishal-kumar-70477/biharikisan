@@ -6,7 +6,7 @@ connectDb();
 
 
 const PORT = process.env.PORT || 3000;
-
+require('dns').setDefaultResultOrder('ipv4first');
 app.listen(PORT, () => {
     console.log(`Server is running at port ${PORT}`);
 });
