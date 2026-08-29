@@ -420,4 +420,35 @@ app.get("/buyer/myorder", async (req, res) => {
     }
 });
 
+app.get("/farmer/allproduct", async (req, res) => {
+    try {
+        const refreshToken = req.cookies.refreshToken;
+
+        if (!refreshToken) {
+            return res.redirect("/");
+        }
+
+        const decoded = jwt.verify(
+            refreshToken,
+            config.JWT_SECRET_KEY
+        );
+
+        const user = await buyerModel.findById(decoded.id);
+
+        if (!user) {
+            return res.redirect("/");
+        }
+
+        const data = {
+            userName: user.fullName,
+             address: user.address.village + "," + user.address.state
+        };
+
+        res.render("farmer/allProduct", { data });
+
+    } catch (error) {
+        console.log(error);
+        res.redirect("/");
+    }
+});
 module.exports = app;
