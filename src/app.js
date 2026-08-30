@@ -86,11 +86,11 @@ app.get("/buyerDash", async (req, res) => {
             return res.redirect("/");
         }
 
-        const orders = await orderModel.find({
+        const allOrders = await orderModel.find({
             buyerId: decoded.id
-        }).sort({ createdAt: -1 }).limit(6);
+        }).sort({ createdAt: -1 });
 
-        const recentOrders = orders.map(order => ({
+        const recentOrders = allOrders.slice(0, 6).map(order => ({
             id: order._id,
             image: order.productImageUri || "",
             name: order.productDesc || "Fresh Produce",
@@ -101,12 +101,29 @@ app.get("/buyerDash", async (req, res) => {
             orderStatus: order.orderStatus || "pending"
         }));
 
+        const dashboardStats = {
+            activeOrders: allOrders.filter(order => {
+                const status = (order.orderStatus || "pending").toLowerCase();
+                return !["delivered", "cancelled"].includes(status);
+            }).length,
+            completedOrders: allOrders.filter(order => {
+                const status = (order.orderStatus || "pending").toLowerCase();
+                return status === "delivered";
+            }).length,
+            totalSpent: allOrders.reduce((sum, order) => sum + Number(order.totalAmount || 0), 0),
+            savedSellers: 0
+        };
+
         const data = {
             userName: user.fullName,
              address: user.address.village + "," + user.address.state
         };
 
-        res.render("buyer/buyerDash", { data, orders: recentOrders });
+        res.render("buyer/buyerDash", {
+            data,
+            orders: recentOrders,
+            dashboardStats
+        });
 
     } catch (error) {
         console.log(error);
