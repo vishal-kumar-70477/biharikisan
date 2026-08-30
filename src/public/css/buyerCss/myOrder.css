@@ -90,7 +90,7 @@ img { max-width: 100%; display: block; }
   background: var(--primary);
   color: var(--white);
   padding: 10px 16px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius-md);
   z-index: 999;
 }
 .skip-link:focus {
