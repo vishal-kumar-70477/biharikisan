@@ -7,6 +7,7 @@ const productsRouter= require("./routes/products.routes")
 const config = require("./config/config");
 const buyerModel = require("./models/buyer.model");
 const productModel = require("./models/products.model");
+const orderModel = require("./models/order.model");
 
 const buyerAuthRouter = require("./routes/buyerAuth.routes")
 const buyerFeaturesRouter = require('./routes/buyerFeatures.routes')
@@ -85,12 +86,27 @@ app.get("/buyerDash", async (req, res) => {
             return res.redirect("/");
         }
 
+        const orders = await orderModel.find({
+            buyerId: decoded.id
+        }).sort({ createdAt: -1 }).limit(6);
+
+        const recentOrders = orders.map(order => ({
+            id: order._id,
+            image: order.productImageUri || "",
+            name: order.productDesc || "Fresh Produce",
+            seller: order.sellerName || "Verified Seller",
+            quantity: order.quantity || 0,
+            amount: Number(order.totalAmount || 0),
+            paymentStatus: order.paymentStatus || "pending",
+            orderStatus: order.orderStatus || "pending"
+        }));
+
         const data = {
             userName: user.fullName,
              address: user.address.village + "," + user.address.state
         };
 
-        res.render("buyer/buyerDash", { data });
+        res.render("buyer/buyerDash", { data, orders: recentOrders });
 
     } catch (error) {
         console.log(error);
