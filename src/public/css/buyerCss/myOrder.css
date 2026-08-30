@@ -467,7 +467,7 @@ img { max-width: 100%; display: block; }
 .bk-stat-card:hover { transform: translateY(-2px); box-shadow: var(--shadow-md); }
 
 .bk-stat-card.is-active {
-  border-color: var(--primary);
+  border-color: var(--sky);
   background: var(--hover);
   box-shadow: var(--shadow-md);
 }

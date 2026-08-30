@@ -1,8 +1,23 @@
 :root{
-    --primary:#1B5E20; --primary-dark:#124215; --secondary:#43A047; --sky:#42A5F5; --white:#FFFFFF;
-    --bg:#F5F5F5; --success:#2E7D32; --warning:#FB8C00; --error:#E53935; --text:#263238; --text-mute:#6B7A7C;
-    --border:#E0E0E0; --hover:#E8F5E9; --radius-lg:24px; --radius-md:18px; --radius-sm:12px;
-    --shadow-sm:0 2px 8px rgba(27,94,32,0.06); --shadow-md:0 8px 24px rgba(27,94,32,0.08); --shadow-lg:0 16px 40px rgba(27,94,32,0.12);
+    --primary:#1B5E20;
+     --primary-dark:#124215; 
+     --secondary:#43A047; 
+     --sky:#42A5F5; 
+     --white:#FFFFFF;
+    --bg:#F5F5F5; 
+    --success:#2E7D32;
+     --warning:#FB8C00; 
+     --error:#E53935; 
+     --text:#263238; 
+     --text-mute:#6B7A7C;
+    --border:#E0E0E0; 
+    --hover:#E8F5E9; 
+    --radius-lg:24px;
+     --radius-md:18px; 
+     --radius-sm:12px;
+    --shadow-sm:0 2px 8px rgba(27,94,32,0.06); 
+    --shadow-md:0 8px 24px rgba(27,94,32,0.08);
+     --shadow-lg:0 16px 40px rgba(27,94,32,0.12);
   }
   *{ box-sizing:border-box; margin:0; padding:0; }
   html{ scroll-behavior:smooth; }
