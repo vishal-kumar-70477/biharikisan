@@ -563,82 +563,32 @@ buyNowBtn.addEventListener(
   "click",
   async () => {
 
+    if (buyNowBtn.disabled) return;
+
     buyNowBtn.disabled = true;
 
     buyNowBtn.innerHTML =
-      `Processing
+      `Preparing order
        <i class="fa-solid fa-spinner fa-spin"></i>`;
-
 
     try {
 
-      const response =
-        await fetch(
-          ORDER_ENDPOINT(
-            PRODUCT.productId
-          ),
-          {
-            method: "POST",
-
-            credentials: "include",
-
-            headers: {
-              "Content-Type":
-                "application/json"
-            },
-
-            body: JSON.stringify({
-
-              quantity:
-                quantity,
-
-              paymentMethod:
-                "cod"
-
-            })
-
-          }
-        );
-
-
-      const data =
-        await response.json();
-
-
-      if (!response.ok) {
-
-        throw new Error(
-          data.message ||
-          "Order place nahi hua"
-        );
-
-      }
-
-
       saveOrderToStorage();
-
-
-      window.location.href =
-        "/orderSummery";
-
+      window.location.href = "/orderSummery";
 
     } catch (error) {
 
       console.error(
-        "Order error:",
+        "Order preparation error:",
         error
       );
 
-
       alert(
         error.message ||
-        "Order place nahi hua"
+        "Order prepare nahi hua"
       );
 
-
       buyNowBtn.disabled = false;
-
-
       buyNowBtn.innerHTML =
         `Buy Now
          <i class="fa-solid fa-arrow-right"></i>`;
