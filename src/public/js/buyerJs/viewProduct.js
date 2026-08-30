@@ -32,6 +32,18 @@ const buyNowBtn = document.getElementById("buyNowBtn");
 const mainImage = document.getElementById("mainImage");
 
 const cartBadge = document.getElementById("cartBadge");
+const loadingShell = document.querySelector(".product-loading-shell");
+const contentShell = document.querySelector(".product-content-shell");
+
+function revealProductContent() {
+  if (loadingShell) {
+    loadingShell.style.display = "none";
+  }
+
+  if (contentShell) {
+    contentShell.style.display = "grid";
+  }
+}
 
 
 // ================= PRODUCT =================
@@ -283,6 +295,7 @@ async function loadProduct() {
     quantity = 1;
 
     renderQuantity();
+    revealProductContent();
 
 
   } catch (error) {
