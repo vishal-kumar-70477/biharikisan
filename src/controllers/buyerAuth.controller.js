@@ -53,11 +53,7 @@ async function register(req, res) {
     })
 
     try {
-        await sendEmail({
-            to:email,
-            subject:"OTP VERIFICATION",
-            html:otpHtml
-        })
+        await sendEmail(email,"OTP Verification","Verify your email with given OTP",otpHtml)
     } catch (error) {
         await otpModel.deleteOne({ _id: otpDoc._id })
         await buyerModel.deleteOne({ _id: buyer._id })
