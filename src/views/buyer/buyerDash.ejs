@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&family=Noto+Sans+Devanagari:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/css/buyerCss/buyerDash.css">
+<link href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css" rel="stylesheet"/>
 <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
 </head>
 <body>
@@ -17,17 +18,15 @@
       <div class="tagline">Buyer Dashboard</div>
     </div>
     <nav class="nav-scroll">
-      <a class="nav-item active" href="#"><i data-lucide="layout-grid"></i><span class="label">Dashboard</span></a>
-      <a class="nav-item" href="/allproduct"><i data-lucide="shopping-basket"></i><span class="label">Browse Crops</span></a>
-      <a class="nav-item" href="/buyer/myOrder">
-    <i data-lucide="clipboard-list"></i>
-    <span class="label">My Orders</span>
+      <a class="nav-item active" href="#"><i class="ri-apps-fill"></i><span class="label">Dashboard</span></a>
+      <a class="nav-item" href="/allproduct"><i class="ri-shopping-basket-fill"></i><span class="label">Browse Crops</span></a>
+      <a class="nav-item" href="/buyer/myOrder"><i class="ri-survey-fill"></i><span class="label">My Orders</span>
 </a>
-      <a class="nav-item" href="#"><i data-lucide="users"></i><span class="label">Saved Sellers</span></a>
-      <a class="nav-item" href="#"><i data-lucide="wallet"></i><span class="label">Payments</span></a>
-      <a class="nav-item" href="#"><i data-lucide="truck"></i><span class="label">Track Delivery</span></a>
-      <a class="nav-item" href="#"><i data-lucide="life-buoy"></i><span class="label">Help &amp; Support</span></a>
-      <a class="nav-item" href="#"><i data-lucide="settings"></i><span class="label">Settings</span></a>
+      <a class="nav-item" href="#"><i class="ri-group-fill"></i><span class="label">Saved Sellers</span></a>
+      <a class="nav-item" href="#"><i class="ri-wallet-fill"></i><span class="label">Payments</span></a>
+      <a class="nav-item" href="#"><i class="ri-truck-fill"></i><span class="label">Track Delivery</span></a>
+      <a class="nav-item" href="#"><i class="ri-hand-heart-fill"></i></i><span class="label">Help &amp; Support</span></a>
+      <a class="nav-item" href="#"><i class="ri-user-settings-fill"></i><span class="label">Settings</span></a>
     </nav>
     <div class="sidebar-foot">
       <a class="nav-item logout-item"  id="logoutBtn" href="#"><i data-lucide="log-out"></i><span class="label">Logout</span></a>
@@ -39,9 +38,9 @@
 
   <header class="topbar">
     <button class="hamburger" id="hamburgerBtn"><i data-lucide="menu"></i></button>
-    <div class="search-wrap"><i data-lucide="search"></i><input type="text" placeholder="Search crops, sellers..."></div>
+    <div class="search-wrap"><i class="ri-seo-line"></i><input type="text" placeholder="Search crops, sellers..."></div>
     <div class="top-actions">
-      <button class="icon-btn"><i data-lucide="bell"></i><span class="dot"></span></button>
+      <button class="icon-btn"><i class="ri-notification-3-fill"></i></i><span class="dot"></span></button>
       <div class="profile-btn">
     <div class="avatar">
         <%= data.userName
@@ -57,7 +56,7 @@
   <main class="main">
     <section class="hero">
       <div class="hero-left">
-       <div class="hero-greet">Welcome back, <span id="userName"> <%= data.userName %> </span> 👋</div>
+       <div class="hero-greet">Welcome back, <span id="userName"> <%= data.userName %> </span>🤝</div>
          <div class="hero-sub">Good Morning · <%= data.address %> · 3.2 acres registered</div>
         <div class="hero-tags">
           <div class="hero-tag"><i data-lucide="shield-check"></i> Verified sellers only</div>
@@ -77,10 +76,10 @@
     </section>
 
     <section class="stats-row">
-      <div class="stat-card"><div class="stat-icon"><i data-lucide="shopping-cart"></i></div><div class="stat-value"><%= dashboardStats.activeOrders %></div><div class="stat-label">Active Orders</div></div>
-      <div class="stat-card"><div class="stat-icon"><i data-lucide="check-circle-2"></i></div><div class="stat-value"><%= dashboardStats.completedOrders %></div><div class="stat-label">Completed Orders</div></div>
-      <div class="stat-card"><div class="stat-icon"><i data-lucide="indian-rupee"></i></div><div class="stat-value">₹<%= Number(dashboardStats.totalSpent).toLocaleString('en-IN') %></div><div class="stat-label">Total Spent</div></div>
-      <div class="stat-card"><div class="stat-icon"><i data-lucide="heart"></i></div><div class="stat-value"><%= dashboardStats.savedSellers %></div><div class="stat-label">Saved Sellers</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="ri-shopping-cart-2-fill"></i></div><div class="stat-value"><%= dashboardStats.activeOrders %></div><div class="stat-label">Active Orders</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="ri-checkbox-multiple-line"></i></i></div><div class="stat-value"><%= dashboardStats.completedOrders %></div><div class="stat-label">Completed Orders</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="ri-money-rupee-circle-fill"></i></div><div class="stat-value">₹<%= Number(dashboardStats.totalSpent).toLocaleString('en-IN') %></div><div class="stat-label">Total Spent</div></div>
+      <div class="stat-card"><div class="stat-icon"><i class="ri-home-heart-line"></i></div><div class="stat-value"><%= dashboardStats.savedSellers %></div><div class="stat-label">Saved Sellers</div></div>
     </section>
 
     <section class="grid-2col">
