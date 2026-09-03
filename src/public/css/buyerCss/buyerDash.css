@@ -39,9 +39,10 @@
   .search-wrap{ flex:1; max-width:520px; min-width:0; position:relative; }
   .search-wrap input{ width:100%; padding:11px 16px 11px 42px; border-radius:999px; border:1px solid var(--border); background:var(--bg); font-size:16px; transition:all .2s ease; }
   .search-wrap input:focus{ outline:none; border-color:var(--secondary); background:#fff; box-shadow:0 0 0 4px rgba(67,160,71,0.12); }
-  .search-wrap svg{ position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-mute); width:18px; height:18px; }
+  .search-wrap i{ position:absolute; left:14px; top:50%; transform:translateY(-50%); color:var(--text-mute); width:18px; height:18px; }
   .top-actions{ display:flex; align-items:center; gap:8px; margin-left:auto; flex-shrink:0; }
   .icon-btn{ width:42px; height:42px; border-radius:14px; display:flex; align-items:center; justify-content:center; color:var(--primary); position:relative; transition:all .15s ease; }
+  .icon-btn i { font-size: 24px;}
   .icon-btn:hover{ background:var(--hover); transform:translateY(-1px); }
   .icon-btn .dot{ position:absolute; top:8px; right:8px; width:8px; height:8px; border-radius:50%; background:var(--error); border:2px solid #fff; }
   .profile-btn{ display:flex; align-items:center; gap:8px; padding:5px 10px 5px 5px; border-radius:999px; border:1px solid var(--border); background:#fff; }
@@ -55,7 +56,7 @@
   .tagline{ margin-top:6px; font-size:12px; font-weight:600; color:var(--sky); }
   .nav-scroll{ padding:16px 14px; flex:1; }
   .nav-section-label{ font-size:11px; text-transform:uppercase; letter-spacing:.08em; color:var(--text-mute); font-weight:700; padding:14px 10px 8px; }
-  .nav-item{ display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:14px; margin-bottom:3px; font-size:14px; font-weight:500; color:var(--text); transition:all .15s ease; }
+  .nav-item{ display:flex; align-items:center; gap:12px; padding:11px 12px; border-radius:14px; margin-bottom:3px; font-size:15px; font-weight:500; color:var(--text); transition:all .15s ease; }
   .nav-item svg{ width:19px; height:19px; color:var(--text-mute); flex-shrink:0; }
   .nav-item:hover{ background:var(--hover); color:var(--primary-dark); }
   .nav-item:hover svg{ color:var(--secondary); }
